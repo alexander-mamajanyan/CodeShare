@@ -38,13 +38,30 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/topic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Topic (e.g. lists, strings, loops)"
+            app:hintTextColor="@color/text_secondary"
+            app:layout_constraintTop_toBottomOf="@id/title_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/topic_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
+                android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Exercise Description"
             app:hintTextColor="@color/text_secondary"
-            app:layout_constraintTop_toBottomOf="@id/title_layout">
+            app:layout_constraintTop_toBottomOf="@id/topic_layout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_input"
@@ -71,7 +88,7 @@
         <WebView
             android:id="@+id/initial_code_editor"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="240dp"
             android:layout_marginTop="4dp"
             android:background="@color/charcoal"
             app:layout_constraintTop_toBottomOf="@id/initial_code_label" />
@@ -82,7 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Test Input (one per line)"
+            android:text="Test Arguments (one case per line; comma-separate arguments)"
             android:textColor="@color/text_secondary"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,6 +113,7 @@
             android:layout_marginTop="4dp"
             android:gravity="top"
             android:lines="3"
+            android:hint="Example: 2, 3"
             android:textColor="@color/text_primary"
             app:layout_constraintTop_toBottomOf="@id/test_input_label" />
 
@@ -146,9 +164,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="16dp"
-            android:text="Create Exercise (10 points)"
-            android:textColor="@color/text_primary"
+            android:text="Submit exercise for review"
+            android:textAllCaps="false"
+            android:textColor="@color/background_dark"
             app:backgroundTint="@color/accent"
+            app:cornerRadius="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/hints_layout" />
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics</title>
+</head>
+<body>
+    <h1>Python Basics</h1>
+    <p>Python programs are made from readable statements. Start with values, variables, and a few built-in functions.</p>
+
+    <h2>Your first statements</h2>
+    <pre><code>print("Hello, world!")
+print(2 + 3)</code></pre>
+    <p><code>print()</code> displays a value. Text goes inside quotes; numbers can be used directly in calculations.</p>
+
+    <h2>Variables and types</h2>
+    <p>A variable is a name that refers to a value. Python figures out the value's type when the program runs.</p>
+    <pre><code>name = "Mina"        # str: text
+age = 16             # int: whole number
+temperature = 21.5   # float: decimal number
+is_learning = True   # bool: True or False
+
+print(name, age)</code></pre>
+    <p>Use clear names such as <code>total_price</code>. Names are case-sensitive, cannot start with a number, and should not contain spaces.</p>
+
+    <h2>Getting input</h2>
+    <pre><code>name = input("What is your name? ")
+print("Welcome,", name)</code></pre>
+    <p><code>input()</code> always returns text. Convert it before doing numeric calculations:</p>
+    <pre><code>age_text = input("Age: ")
+age = int(age_text)
+print(age + 1)</code></pre>
+    <div class="note"><strong>Remember:</strong> use <code>int()</code> for whole numbers and <code>float()</code> for decimal numbers.</div>
+
+    <h2>Try it</h2>
+    <ol>
+        <li>Create variables for a city and its population, then print a sentence using both.</li>
+        <li>Ask for two numbers, convert them to integers, and print their sum.</li>
+    </ol>
+</body>
+</html>

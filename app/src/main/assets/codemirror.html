@@ -2,104 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Editor</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/comment/comment.min.js"></script>
-    <!-- Add theme stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/nord.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <title>Python editor</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: #2E3440; /* Matching background_dark color */
-        }
-        .CodeMirror {
-            height: 100vh;
-            font-size: 14px;
-        }
-        /* Custom styling for better visibility */
-        .CodeMirror-gutters {
-            background: #3B4252 !important;
-            border-right: 1px solid #434C5E !important;
-        }
-        .CodeMirror-linenumber {
-            color: #D8DEE9 !important;
-        }
-    </style>
-    <script>
-        let editor;
-        function initEditor() {
-            editor = CodeMirror(document.body, {
-                mode: "python",
-                theme: "nord",  // Using Nord theme which has softer colors
-                lineNumbers: true,
-                autoCloseBrackets: true,
-                indentUnit: 4,
-                tabSize: 4,
-                lineWrapping: true,
-                matchBrackets: true
-            });
-            
-            // Set initial content
-            editor.setValue("# Write your Python code here\n");
-            
-            // Add change event handler to automatically send code to Android
-            editor.on('change', function() {
-                // Use a debounce to avoid sending too many updates
-                clearTimeout(editor.changeTimer);
-                editor.changeTimer = setTimeout(function() {
-                    sendCode();
-                }, 500); // Send code after 500ms of inactivity
-            });
+        :root {
+            color-scheme: dark;
+            font-family: sans-serif;
+            background: #0B1020;
         }
 
-        function sendCode() {
-            try {
-                if (!editor) {
-                    console.error("Editor not initialized");
-                    return "# Error: Editor not initialized";
-                }
-                
-                const code = editor.getValue();
-                
-                // Log the code being sent
-                console.log("Sending code to Android, length: " + code.length);
-                
-                // Make sure Android interface exists
-                if (typeof Android !== 'undefined' && Android && typeof Android.sendCodeToAndroid === 'function') {
-                    Android.sendCodeToAndroid(code);
-                    console.log("Code sent successfully");
-                } else {
-                    console.error("Android interface not available");
-                }
-                
-                return code;
-            } catch (error) {
-                console.error("Error sending code:", error);
-                return "# Error: " + error.message;
-            }
+        * {
+            box-sizing: border-box;
         }
-        
-        // Function to get code - called by JavaScript from Android
-        function getCode() {
-            try {
-                if (!editor) {
-                    console.error("Editor not initialized");
-                    return "";
-                }
-                return editor.getValue();
-            } catch (error) {
-                console.error("Error getting code:", error);
-                return "";
-            }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: #0B1020;
         }
-    </script>
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #editor {
+            flex: 1;
+            min-height: 0;
+            overflow: auto;
+        }
+
+        .cm-editor {
+            min-height: 100%;
+        }
+
+        .key-row {
+            display: flex;
+            gap: 7px;
+            overflow-x: auto;
+            padding: 9px 10px;
+            background: #151D30;
+            border-top: 1px solid #29344B;
+            scrollbar-width: none;
+        }
+
+        .key-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .key-row button {
+            flex: 0 0 auto;
+            min-width: 42px;
+            height: 36px;
+            border: 1px solid #34415D;
+            border-radius: 10px;
+            padding: 0 11px;
+            color: #F5F7FF;
+            background: #1C2740;
+            font: 14px monospace;
+        }
+
+        .key-row button:active {
+            background: #34415D;
+        }
+    </style>
 </head>
-<body onload="initEditor()">
+<body>
+    <div id="editor"></div>
+    <div class="key-row" aria-label="Python coding keys">
+        <button type="button" data-insert="    ">Tab</button>
+        <button type="button" data-wrap="(|)">( )</button>
+        <button type="button" data-wrap="[|]">[ ]</button>
+        <button type="button" data-insert=":">:</button>
+        <button type="button" data-insert=" = ">=</button>
+        <button type="button" data-insert=" -> ">-&gt;</button>
+        <button type="button" data-insert="#">#</button>
+        <button type="button" data-wrap="&quot;|&quot;">&quot; &quot;</button>
+    </div>
+    <script src="code-editor.js"></script>
 </body>
 </html>

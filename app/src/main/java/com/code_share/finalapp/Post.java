@@ -8,6 +8,7 @@ public class Post {
     private String userId;
     private String userName;
     private String userAvatar;
+    private String title;
     private String description;
     private String imageUrl;
     private String codeContent;
@@ -57,6 +58,14 @@ public class Post {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description) {
@@ -124,7 +133,6 @@ public class Post {
         this.description = content;
     }
 } 
-
 
 
 

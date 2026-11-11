@@ -4,41 +4,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="7dp"
     app:cardBackgroundColor="@color/charcoal"
-    app:cardCornerRadius="0dp"
-    app:cardElevation="0dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/surface_outline"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:padding="12dp">
 
             <ImageView
                 android:id="@+id/user_avatar"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:contentDescription="User avatar"
-                android:src="@drawable/default_avatar"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_avatar" />
 
             <TextView
                 android:id="@+id/user_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="12dp"
+                android:layout_weight="1"
                 android:textColor="@color/text_primary"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/post_menu"
@@ -47,45 +49,78 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Post menu"
                 android:src="@drawable/ic_more_vert"
-                android:tint="@color/text_primary"/>
+                android:tint="@color/text_primary" />
         </LinearLayout>
 
-        <!-- Post Image -->
+        <LinearLayout
+            android:id="@+id/post_text_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:id="@+id/post_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/post_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:adjustViewBounds="true"
             android:contentDescription="Post image"
             android:scaleType="centerCrop"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <!-- Code View -->
         <WebView
             android:id="@+id/code_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-            
-        <!-- Code View Indicator -->
+            android:layout_height="176dp"
+            android:background="@color/background_dark"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/code_view_indicator"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="View Code"
-            android:textColor="@color/text_primary"
-            android:textStyle="bold"
-            android:gravity="center"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="14dp"
             android:background="?attr/selectableItemBackground"
-            android:visibility="gone"/>
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="7dp"
+            android:text="Expand code"
+            android:textColor="@color/accent"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
-        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:paddingHorizontal="8dp"
+            android:paddingTop="8dp">
 
             <ImageButton
                 android:id="@+id/like_button"
@@ -93,8 +128,9 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Like post"
+                android:padding="10dp"
                 android:src="@drawable/ic_favorite_border"
-                android:tint="@color/text_primary"/>
+                android:tint="@color/text_primary" />
 
             <ImageButton
                 android:id="@+id/comment_button"
@@ -103,8 +139,9 @@
                 android:layout_marginStart="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Comment on post"
+                android:padding="10dp"
                 android:src="@drawable/ic_comment"
-                android:tint="@color/text_primary"/>
+                android:tint="@color/text_primary" />
 
             <ImageButton
                 android:id="@+id/share_button"
@@ -113,11 +150,11 @@
                 android:layout_marginStart="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Share post"
+                android:padding="10dp"
                 android:src="@drawable/ic_share"
-                android:tint="@color/text_primary"/>
+                android:tint="@color/text_primary" />
         </LinearLayout>
 
-        <!-- Likes Count -->
         <TextView
             android:id="@+id/like_count"
             android:layout_width="wrap_content"
@@ -126,35 +163,8 @@
             android:layout_marginBottom="4dp"
             android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-        <!-- Description -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="12dp"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/user_name_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/post_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_weight="1"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp"/>
-        </LinearLayout>
-
-        <!-- Comments Count -->
         <TextView
             android:id="@+id/comment_count"
             android:layout_width="wrap_content"
@@ -162,9 +172,8 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
             android:textColor="@color/text_secondary"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
-        <!-- Timestamp -->
         <TextView
             android:id="@+id/post_timestamp"
             android:layout_width="wrap_content"
@@ -172,6 +181,6 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="12dp"
             android:textColor="@color/text_secondary"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </LinearLayout>
-</com.google.android.material.card.MaterialCardView> 
+</com.google.android.material.card.MaterialCardView>

@@ -62,18 +62,15 @@ public class ForgotActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = String.valueOf(Email.getText());
-                if(Email == null){
-                    Toast.makeText(ForgotActivity.this, "please, write your email", Toast.LENGTH_LONG).show();
+                String email = Email.getText() != null ? Email.getText().toString().trim() : "";
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Email.setError("Enter a valid email address");
+                    return;
                 }
-                else{
-                    sendPasswordResetEmail(email);
-                    txt.setText("Password reset link was sent to your email!");
-                }
+                sendPasswordResetEmail(email);
             }
         });
 
     }
 }
-
 

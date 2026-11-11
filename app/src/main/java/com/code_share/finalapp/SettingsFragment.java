@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
@@ -72,8 +71,6 @@ public class SettingsFragment extends Fragment {
         MaterialButton privacyButton = view.findViewById(R.id.privacy_button);
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
         adminSettingsButton = view.findViewById(R.id.admin_settings_button);
-        SwitchMaterial darkModeSwitch = view.findViewById(R.id.dark_mode_switch);
-        SwitchMaterial notificationsSwitch = view.findViewById(R.id.notifications_switch);
         
         // Check if user is admin
         checkAdminStatus();
@@ -96,17 +93,6 @@ public class SettingsFragment extends Fragment {
             } else {
                 Toast.makeText(getContext(), "You don't have permission to access admin settings", Toast.LENGTH_SHORT).show();
             }
-        });
-
-        // Set switch listeners
-        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // TODO: Implement dark mode toggle
-            Toast.makeText(getContext(), "Dark mode: " + (isChecked ? "On" : "Off"), Toast.LENGTH_SHORT).show();
-        });
-
-        notificationsSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // TODO: Implement notifications toggle
-            Toast.makeText(getContext(), "Notifications: " + (isChecked ? "On" : "Off"), Toast.LENGTH_SHORT).show();
         });
 
         return view;

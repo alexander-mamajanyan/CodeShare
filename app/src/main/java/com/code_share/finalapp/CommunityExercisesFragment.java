@@ -119,7 +119,7 @@ public class CommunityExercisesFragment extends Fragment {
 
 
     private void onExerciseClick(Exercise exercise) {
-        CodeEditorFragment fragment = new CodeEditorFragment();
+        ExerciseWorkspaceFragment fragment = new ExerciseWorkspaceFragment();
         Bundle args = new Bundle();
         args.putParcelable("exercise", exercise);
         fragment.setArguments(args);
@@ -131,7 +131,6 @@ public class CommunityExercisesFragment extends Fragment {
                 .commit();
     }
 } 
-
 
 
 

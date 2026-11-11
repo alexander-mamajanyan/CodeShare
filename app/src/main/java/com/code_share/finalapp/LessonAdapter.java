@@ -37,6 +37,11 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         holder.titleView.setText(lesson.getTitle());
         holder.descriptionView.setText(lesson.getDescription());
         holder.topicsView.setText(lesson.getTopics());
+        holder.numberView.setText(String.format(java.util.Locale.getDefault(), "%02d", position + 1));
+        holder.stateView.setText(lesson.isAvailable() ? "READY" : "LOCKED");
+        holder.stateView.setTextColor(holder.itemView.getResources().getColor(
+                lesson.isAvailable() ? R.color.accent : R.color.text_secondary,
+                holder.itemView.getContext().getTheme()));
         
         // Set item appearance based on availability
         if (lesson.isAvailable()) {
@@ -63,12 +68,16 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         TextView titleView;
         TextView descriptionView;
         TextView topicsView;
+        TextView numberView;
+        TextView stateView;
 
         LessonViewHolder(View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.lesson_item_title);
             descriptionView = itemView.findViewById(R.id.lesson_item_description);
             topicsView = itemView.findViewById(R.id.lesson_item_topics);
+            numberView = itemView.findViewById(R.id.lesson_item_number);
+            stateView = itemView.findViewById(R.id.lesson_item_state);
         }
     }
 }

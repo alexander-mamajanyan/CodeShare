@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+</head>
+<body>
+    <h1>Functions</h1>
+    <p>A function is a named, reusable block of code. Functions help break a problem into smaller pieces and avoid repeating logic.</p>
+
+    <h2>Define and call a function</h2>
+    <pre><code>def greet(name):
+    print("Hello,", name)
+
+greet("Ari")</code></pre>
+    <p><code>def</code> starts a definition. The indented body runs only when the function is called. Here, <code>name</code> is a parameter and <code>"Ari"</code> is the argument.</p>
+
+    <h2>Return a result</h2>
+    <pre><code>def rectangle_area(width, height):
+    return width * height
+
+area = rectangle_area(4, 3)
+print(area)  # 12</code></pre>
+    <p><code>return</code> sends a value back to the caller and ends the function. If a function has no return statement, it returns <code>None</code>.</p>
+
+    <h2>Defaults and scope</h2>
+    <pre><code>def greet(name, greeting="Hi"):
+    message = greeting + ", " + name
+    return message
+
+print(greet("Sam"))
+print(greet("Sam", "Welcome"))</code></pre>
+    <p>A parameter can have a default value. Variables created inside a function are local to it; pass in values the function needs instead of relying on unrelated global variables.</p>
+
+    <h2>Try it</h2>
+    <ol>
+        <li>Write a function that takes a number and returns its square.</li>
+        <li>Write a function that takes two numbers and returns the larger one.</li>
+        <li>Write a function that returns the number of vowels in a word.</li>
+    </ol>
+</body>
+</html>

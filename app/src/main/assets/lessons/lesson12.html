@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditions and Boolean Logic</title>
+</head>
+<body>
+    <h1>Conditions and Boolean Logic</h1>
+    <p>Conditions let a program choose which statements to run. A condition evaluates to either <code>True</code> or <code>False</code>.</p>
+
+    <h2>Comparisons</h2>
+    <pre><code>score = 82
+print(score >= 60)  # True</code></pre>
+    <p>Python comparison operators are <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, and <code>&gt;=</code>. Use <code>==</code> to compare values; a single <code>=</code> assigns a value.</p>
+
+    <h2>if, elif, and else</h2>
+    <p>Indentation marks the statements in each branch. Keep the indentation consistent.</p>
+    <pre><code>score = 82
+
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+else:
+    grade = "Keep practicing"
+
+print(grade)</code></pre>
+    <p>Python checks branches from top to bottom and runs the first matching branch. <code>else</code> is optional and catches everything not matched above.</p>
+
+    <h2>Combining conditions</h2>
+    <pre><code>age = 19
+has_ticket = True
+
+if age >= 18 and has_ticket:
+    print("Welcome")
+
+if age < 13 or age >= 65:
+    print("Discount")
+
+if not has_ticket:
+    print("Please buy a ticket")</code></pre>
+    <p><code>and</code> requires both sides to be true, <code>or</code> requires at least one, and <code>not</code> reverses a boolean value.</p>
+
+    <h2>Try it</h2>
+    <ol>
+        <li>Ask for a number and print whether it is positive, negative, or zero.</li>
+        <li>Ask for a test score and print a letter grade using multiple branches.</li>
+    </ol>
+</body>
+</html>

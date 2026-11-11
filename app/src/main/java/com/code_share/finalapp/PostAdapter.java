@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,16 +19,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
     private Context context;
     private List<Post> posts;
     private OnPostInteractionListener listener;
     private String currentUserId;
+    private final Set<String> expandedCodePosts = new HashSet<>();
 
     public interface OnPostInteractionListener {
         void onLikeClicked(Post post);
@@ -104,16 +108,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 });
         }
 
-        // Set User name (in header and description)
+        // Set user name and post text
         holder.userName.setText(post.getUserName());
-        holder.userNameDescription.setText(post.getUserName());
+        String title = post.getTitle();
+        if (title == null || title.trim().isEmpty()) {
+            holder.postTitle.setVisibility(View.GONE);
+        } else {
+            holder.postTitle.setText(title);
+            holder.postTitle.setVisibility(View.VISIBLE);
+        }
 
         // Set timestamp
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
         String formattedDate = sdf.format(new Date(post.getTimestamp()));
         holder.timestamp.setText(formattedDate);
 
-        // Set content
+        // Keep legacy post descriptions readable when no title was saved.
         holder.content.setText(post.getDescription());
 
         // Handle Post image
@@ -129,23 +139,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
 
         // Handle code content
-        if (post.getCodeContent() != null && !post.getCodeContent().isEmpty()) {
+        String code = post.getCodeContent();
+        if (code != null && !code.isEmpty()) {
+            String codeKey = getCodePostKey(post);
+            boolean expanded = expandedCodePosts.contains(codeKey);
+            int lineCount = code.split("\n", -1).length;
+            boolean expandable = lineCount > 7 || code.length() > 600;
             holder.codeView.setVisibility(View.VISIBLE);
-            setupCodeView(holder.codeView, post.getCodeContent());
-            
-            // Make the code view clickable to show full code in a dialog
-            holder.codeView.setOnClickListener(v -> {
-                showCodeDialog(post);
-            });
-            
-            // Add a "View Code" text indicator
-            holder.codeViewIndicator.setVisibility(View.VISIBLE);
+            setupCodeView(holder.codeView, code);
+            setCodeViewHeight(holder.codeView, lineCount, expanded);
+            holder.codeViewIndicator.setVisibility(expandable ? View.VISIBLE : View.GONE);
+            holder.codeViewIndicator.setText(expanded ? "Show less" : "Expand code");
             holder.codeViewIndicator.setOnClickListener(v -> {
-                showCodeDialog(post);
+                if (expandedCodePosts.contains(codeKey)) {
+                    expandedCodePosts.remove(codeKey);
+                } else {
+                    expandedCodePosts.add(codeKey);
+                }
+                int currentPosition = holder.getAdapterPosition();
+                if (currentPosition != RecyclerView.NO_POSITION) {
+                    notifyItemChanged(currentPosition);
+                }
             });
         } else {
             holder.codeView.setVisibility(View.GONE);
             holder.codeViewIndicator.setVisibility(View.GONE);
+            holder.codeViewIndicator.setOnClickListener(null);
         }
 
         // Set counts and like state
@@ -172,100 +191,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private void setupCodeView(WebView webView, String code) {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
         webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setSupportZoom(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
+        webSettings.setAllowContentAccess(false);
+        webSettings.setDefaultTextEncodingName("UTF-8");
+        webView.setVerticalScrollBarEnabled(false);
+        webView.setHorizontalScrollBarEnabled(false);
 
-        // Escape the code for JavaScript
-        String escapedCode = code
-            .replace("\\", "\\\\")
-            .replace("\"", "\\\"")
-            .replace("\n", "\\n")
-            .replace("\r", "\\r");
-
-        // Create HTML content with CodeMirror
         String htmlContent = "<!DOCTYPE html>" +
-            "<html>" +
-            "<head>" +
-            "<link rel=\"stylesheet\" href=\"file:///android_asset/codemirror.css\">" +
-            "<script src=\"file:///android_asset/codemirror.js\"></script>" +
-            "<script src=\"file:///android_asset/javascript.js\"></script>" +
-            "<style>" +
-            "body { margin: 0; padding: 0; background: #1e1e1e; }" +
-            ".CodeMirror { height: auto; font-size: 14px; }" +
-            ".CodeMirror-scroll { max-height: 300px; }" +
-            "</style>" +
-            "</head>" +
-            "<body>" +
-            "<script>" +
-            "var editor = CodeMirror(document.body, {" +
-            "  value: \"" + escapedCode + "\"," +
-            "  mode: \"javascript\"," +
-            "  theme: \"monokai\"," +
-            "  readOnly: true," +
-            "  lineNumbers: true," +
-            "  lineWrapping: true" +
-            "});" +
-            "</script>" +
-            "</body>" +
-            "</html>";
+            "<html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" +
+            "<style>html,body{margin:0;background:#0B1020;color:#F5F7FF}" +
+            "pre{box-sizing:border-box;margin:0;padding:14px;overflow:auto;white-space:pre;" +
+            "font:13px/21px monospace}code{font:inherit}.tok-keyword{color:#C792EA;font-weight:600}" +
+            ".tok-string{color:#C3E88D}.tok-number{color:#F78C6C}" +
+            ".tok-comment{color:#7886A3;font-style:italic}.tok-variableName{color:#82AAFF}" +
+            ".tok-definition{color:#82AAFF;font-weight:600}.tok-typeName{color:#FFCB6B}" +
+            ".tok-operator{color:#89DDFF}.tok-punctuation{color:#A7B1C8}" +
+            ".tok-bool{color:#F78C6C}</style></head><body><pre><code>"
+            + escapeHtml(code) +
+            "</code></pre><script src=\"file:///android_asset/code-editor.js\"></script>" +
+            "<script>if(window.highlightPythonCodeBlocks)" +
+            "window.highlightPythonCodeBlocks(document)</script></body></html>";
 
         webView.loadDataWithBaseURL("file:///android_asset/", htmlContent, "text/html", "UTF-8", null);
     }
-    
-    /**
-     * Shows a dialog with the post's code content using syntax highlighting
-     */
-    private void showCodeDialog(Post post) {
-        // Create a dialog to show the code content
-        AlertDialog.Builder builder = new AlertDialog.Builder(context)
-            .setTitle("Code by " + post.getUserName())
-            .setPositiveButton("Close", null);
-        
-        // Create a custom view for the dialog
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_view_code, null);
-        WebView codeWebView = view.findViewById(R.id.code_web_view);
-        TextView creatorInfoTextView = view.findViewById(R.id.creator_info_text_view);
-        
-        // Configure WebView for code highlighting
-        WebSettings webSettings = codeWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        
-        // Set the creator info
-        String creatorInfo = "Posted by: " + post.getUserName() + "\n" +
-                           "Date: " + new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date(post.getTimestamp()));
-        creatorInfoTextView.setText(creatorInfo);
-        
-        // Prepare code with syntax highlighting using highlight.js
-        String code = post.getCodeContent();
-        String highlightedCode = "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<head>\n" +
-                "    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css\">\n" +
-                "    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js\"></script>\n" +
-                "    <script>hljs.highlightAll();</script>\n" +
-                "    <style>\n" +
-                "        body { background-color: #2E3440; margin: 12px; }\n" +
-                "        pre { margin: 0; }\n" +
-                "        code { font-family: 'Courier New', monospace; }\n" +
-                "    </style>\n" +
-                "</head>\n" +
-                "<body>\n" +
-                "    <pre><code class=\"python\">" + escapeHtml(code) + "</code></pre>\n" +
-                "</body>\n" +
-                "</html>";
-        
-        codeWebView.loadDataWithBaseURL(null, highlightedCode, "text/html", "UTF-8", null);
-        
-        // Show the dialog
-        builder.setView(view).show();
+
+    private void setCodeViewHeight(WebView webView, int lineCount, boolean expanded) {
+        int density = context.getResources().getDisplayMetrics().densityDpi;
+        int collapsedHeight = 176 * density / 160;
+        int maxHeight = (int) (context.getResources().getDisplayMetrics().heightPixels * 0.6f);
+        int expandedHeight = Math.min(maxHeight, Math.max(collapsedHeight,
+                (lineCount * 21 + 28) * density / 160));
+        ViewGroup.LayoutParams params = webView.getLayoutParams();
+        params.height = expanded ? expandedHeight : collapsedHeight;
+        webView.setLayoutParams(params);
+    }
+
+    private String getCodePostKey(Post post) {
+        if (post.getId() != null && !post.getId().isEmpty()) {
+            return post.getId();
+        }
+        return post.getUserId() + "_" + post.getTimestamp();
     }
     
     /**
@@ -294,7 +260,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     static class PostViewHolder extends RecyclerView.ViewHolder {
         ImageView userAvatar;
         TextView userName;
-        TextView userNameDescription;
+        TextView postTitle;
         TextView timestamp;
         TextView content;
         ImageView postImage;
@@ -311,7 +277,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             super(itemView);
             userAvatar = itemView.findViewById(R.id.user_avatar);
             userName = itemView.findViewById(R.id.user_name);
-            userNameDescription = itemView.findViewById(R.id.user_name_description);
+            postTitle = itemView.findViewById(R.id.post_title);
             timestamp = itemView.findViewById(R.id.post_timestamp);
             content = itemView.findViewById(R.id.post_content);
             postImage = itemView.findViewById(R.id.post_image);

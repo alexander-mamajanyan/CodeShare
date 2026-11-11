@@ -128,9 +128,9 @@ public class OfficialExercisesFragment extends Fragment {
     }
 
     private void onExerciseClick(Exercise exercise) {
-        CodeEditorFragment fragment = new CodeEditorFragment();
+        ExerciseWorkspaceFragment fragment = new ExerciseWorkspaceFragment();
         Bundle args = new Bundle();
-        args.putParcelable("Exercise", exercise);
+        args.putParcelable("exercise", exercise);
         fragment.setArguments(args);
         
         requireActivity().getSupportFragmentManager()
@@ -141,13 +141,14 @@ public class OfficialExercisesFragment extends Fragment {
     }
 
     private Exercise createEasyExercise(int number) {
-        String title, description, initialCode, solutionMethodName;
+        String title, description, initialCode, solutionMethodName, category;
         ArrayList<String> hints = new ArrayList<>();
         ArrayList<Exercise.TestCase> testCases = new ArrayList<>();
         
         switch (number) {
             case 1:
                 title = "Hello World";
+                category = "Strings";
                 description = "Write a function called Hello_World that returns the string 'Hello, World!'";
                 initialCode = "def Hello_World():\n    # Write your code here\n    pass";
                 solutionMethodName = "Hello_World";
@@ -160,6 +161,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 2:
                 title = "Sum Two Numbers";
+                category = "Arithmetic";
                 description = "Write a function called sum_two_numbers that takes two numbers and returns their sum";
                 initialCode = "def sum_two_numbers(a, b):\n    # Write your code here\n    pass";
                 solutionMethodName = "sum_two_numbers";
@@ -175,6 +177,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 3:
                 title = "Even or Odd";
+                category = "Conditionals";
                 description = "Write a function called check_even_odd that takes a number and returns 'Even' if the number is even, 'Odd' if it's odd";
                 initialCode = "def check_even_odd(number):\n    # Write your code here\n    pass";
                 solutionMethodName = "check_even_odd";
@@ -191,6 +194,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 4:
                 title = "Reverse String";
+                category = "Strings";
                 description = "Write a function that takes a string and returns it reversed";
                 initialCode = "def solution(text):\n    # Write your code here\n    pass";
                 solutionMethodName = "solution";
@@ -206,6 +210,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 5:
                 title = "Count Vowels";
+                category = "Strings";
                 description = "Write a function that counts the number of vowels in a string";
                 initialCode = "def solution(text):\n    # Write your code here\n    pass";
                 solutionMethodName = "solution";
@@ -222,6 +227,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             default:
                 title = "Easy Exercise " + number;
+                category = "Fundamentals";
                 description = "Complete this simple Python Exercise.";
                 initialCode = "def solution():\n    # Your code here\n    pass";
                 solutionMethodName = "solution";
@@ -233,17 +239,18 @@ public class OfficialExercisesFragment extends Fragment {
         }
         
         String id = "easy_" + number;
-        return new Exercise(id, title, description, "Easy", "Official", initialCode, testCases, hints, solutionMethodName, 5, "admin", "System");
+        return new Exercise(id, title, description, "Easy", category, initialCode, testCases, hints, solutionMethodName, 0, "admin", "System");
     }
 
     private Exercise createMediumExercise(int number) {
-        String title, description, initialCode, solutionMethodName;
+        String title, description, initialCode, solutionMethodName, category;
         ArrayList<String> hints = new ArrayList<>();
         ArrayList<Exercise.TestCase> testCases = new ArrayList<>();
         
         switch (number) {
             case 1:
                 title = "Fibonacci Number";
+                category = "Sequences";
                 description = "Write a function called fibonacci that takes a number n and returns the nth Fibonacci number.";
                 initialCode = "def fibonacci(n):\n    # Write your code here\n    pass";
                 solutionMethodName = "fibonacci";
@@ -260,6 +267,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 2:
                 title = "List Comprehension";
+                category = "Lists";
                 description = "Write a function called square_evens that takes a list of numbers and returns a new list containing squares of only even numbers.";
                 initialCode = "def square_evens(numbers):\n    # Write your code here\n    pass";
                 solutionMethodName = "square_evens";
@@ -275,6 +283,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             default:
                 title = "Medium Exercise " + number;
+                category = "Fundamentals";
                 description = "Complete this intermediate Python Exercise.";
                 initialCode = "def solution():\n    # Your code here\n    pass";
                 solutionMethodName = "solution";
@@ -286,17 +295,18 @@ public class OfficialExercisesFragment extends Fragment {
         }
         
         String id = "medium_" + number;
-        return new Exercise(id, title, description, "Medium", "Official", initialCode, testCases, hints, solutionMethodName, 10, "admin", "System");
+        return new Exercise(id, title, description, "Medium", category, initialCode, testCases, hints, solutionMethodName, 0, "admin", "System");
     }
 
     private Exercise createHardExercise(int number) {
-        String title, description, initialCode, solutionMethodName;
+        String title, description, initialCode, solutionMethodName, category;
         ArrayList<String> hints = new ArrayList<>();
         ArrayList<Exercise.TestCase> testCases = new ArrayList<>();
         
         switch (number) {
             case 1:
                 title = "Binary Search";
+                category = "Searching";
                 description = "Write a function called binary_search that takes a sorted list and a target value, returns the index if found or -1 if not found.";
                 initialCode = "def binary_search(arr, target):\n    # Write your code here\n    pass";
                 solutionMethodName = "binary_search";
@@ -313,6 +323,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             case 2:
                 title = "Merge Sort";
+                category = "Sorting";
                 description = "Write a function called merge_sort that takes a list and returns a new sorted list using the merge sort algorithm.";
                 initialCode = "def merge_sort(arr):\n    # Write your code here\n    pass";
                 solutionMethodName = "merge_sort";
@@ -328,6 +339,7 @@ public class OfficialExercisesFragment extends Fragment {
                 
             default:
                 title = "Hard Exercise " + number;
+                category = "Algorithms";
                 description = "Complete this advanced Python Exercise.";
                 initialCode = "def solution():\n    # Your code here\n    pass";
                 solutionMethodName = "solution";
@@ -339,10 +351,8 @@ public class OfficialExercisesFragment extends Fragment {
         }
         
         String id = "hard_" + number;
-        return new Exercise(id, title, description, "Hard", "Official", initialCode, testCases, hints, solutionMethodName, 15, "admin", "System");
+        return new Exercise(id, title, description, "Hard", category, initialCode, testCases, hints, solutionMethodName, 0, "admin", "System");
     }
 } 
-
-
 
 

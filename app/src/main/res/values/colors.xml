@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Nord Theme Colors -->
-    <color name="background_dark">#2E3440</color>
-    <color name="charcoal">#3B4252</color>
-    <color name="text_primary">#ECEFF4</color>
-    <color name="text_secondary">#D8DEE9</color>
-    <color name="primary">#88C0D0</color>
-    <color name="primary_dark">#81A1C1</color>
-    <color name="accent">#88C0D0</color>
-    <color name="accent_soft">#88C0D0</color>
-    <color name="baby_blue">#88C0D0</color>
-    <color name="pale_mint">#A3BE8C</color>
-    <color name="error_red">#BF616A</color>
-    <color name="success_green">#4CAF50</color>
-    <color name="light_cream">#ECEFF4</color>
+    <color name="background_dark">#0B1020</color>
+    <color name="charcoal">#151D30</color>
+    <color name="surface_elevated">#1C2740</color>
+    <color name="text_primary">#F5F7FF</color>
+    <color name="text_secondary">#A7B1C8</color>
+    <color name="primary">#A99BFF</color>
+    <color name="primary_dark">#8372F5</color>
+    <color name="accent">#B8F36B</color>
+    <color name="accent_soft">#C5B9FF</color>
+    <color name="baby_blue">#8BD8F2</color>
+    <color name="pale_mint">#B8F36B</color>
+    <color name="error_red">#FF7F91</color>
+    <color name="success_green">#B8F36B</color>
+    <color name="light_cream">#F5F7FF</color>
     <color name="background_light">#FFFFFFFF</color>
     <color name="primary_light">#ECEFF4</color>
     
@@ -30,6 +30,7 @@
     <color name="background">#F5F5F5</color>
     <color name="error">#FFB00020</color>
     <color name="link_color">#0095F6</color>
-    <color name="divider">#4D5A6A</color>
-    <color name="code_text">#A3BE8C</color>
+    <color name="divider">#29344B</color>
+    <color name="code_text">#B8F36B</color>
+    <color name="surface_outline">#34415D</color>
 </resources>

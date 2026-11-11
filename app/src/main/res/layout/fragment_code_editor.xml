@@ -1,87 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_dark"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/charcoal"
+        app:titleTextColor="@color/text_primary" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/charcoal"
-            app:titleTextColor="@color/text_primary" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- Main Content -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/runtime_label"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp"
+        android:text="Python 3.12 runs on this device. Only run code you trust."
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp" />
+
+    <WebView
+        android:id="@+id/codeEditor"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/background_dark"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:overScrollMode="never" />
 
-        <!-- Code Editor -->
-        <WebView
-            android:id="@+id/codeEditor"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/output"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/program_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:hint="Input for input() (optional)"
+        app:boxStrokeColor="@color/primary"
+        app:hintTextColor="@color/text_secondary">
 
-        <!-- Output Area -->
-        <TextView
-            android:id="@+id/output"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/charcoal"
-            android:padding="8dp"
-            android:text="Output will appear here"
-            android:textColor="@color/text_primary"
-            android:textSize="14sp"
-            android:gravity="start|top"
-            app:layout_constraintBottom_toTopOf="@+id/button_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Button Container -->
-        <LinearLayout
-            android:id="@+id/button_container"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/program_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:gravity="top"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:maxLines="2"
+            android:minLines="1"
+            android:textColor="@color/text_primary" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageButton
-                android:id="@+id/run_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_media_play"
-                android:tint="@color/text_primary"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Run Code" />
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/category_background"
+        android:fontFamily="monospace"
+        android:gravity="start|top"
+        android:maxHeight="104dp"
+        android:padding="12dp"
+        android:scrollbars="vertical"
+        android:text="Run your code to see output here."
+        android:textColor="@color/text_primary"
+        android:textIsSelectable="true"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
-            <ImageButton
-                android:id="@+id/share_code_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_share"
-                android:tint="@color/text_primary"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Share Code"
-                android:layout_marginStart="8dp" />
+    <LinearLayout
+        android:id="@+id/editor_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="12dp">
 
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/share_code_button"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="Share"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            app:cornerRadius="14dp"
+            app:strokeColor="@color/surface_outline" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/run_button"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1.5"
+            android:text="Run code"
+            android:textAllCaps="false"
+            android:textColor="@color/background_dark"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="14dp" />
+    </LinearLayout>
+</LinearLayout>

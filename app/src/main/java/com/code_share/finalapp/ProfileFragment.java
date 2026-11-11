@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
     private TextView usernameText;
     private TextView emailText;
-    private TextView scoreText;
+    private TextView solvedCount;
     private TextView followersCount;
     private TextView followingCount;
     private FloatingActionButton settingsFab;
@@ -51,11 +51,11 @@ public class ProfileFragment extends Fragment {
         // Initialize views
         usernameText = view.findViewById(R.id.username_text);
         emailText = view.findViewById(R.id.email_text);
-        scoreText = view.findViewById(R.id.score_text);
+        solvedCount = view.findViewById(R.id.solved_count);
         followersCount = view.findViewById(R.id.followers_count);
         followingCount = view.findViewById(R.id.following_count);
         MaterialButton settingsButton = view.findViewById(R.id.settings_button);
-        MaterialButton leaderboardsButton = view.findViewById(R.id.leaderboards_button);
+        MaterialButton progressButton = view.findViewById(R.id.progress_button);
 
         // Set up settings button click listener
         settingsButton.setOnClickListener(v -> {
@@ -67,15 +67,11 @@ public class ProfileFragment extends Fragment {
                     .commit();
         });
         
-        // Set up leaderboards button click listener
-        leaderboardsButton.setOnClickListener(v -> {
-            LeaderboardFragment leaderboardFragment = new LeaderboardFragment();
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, leaderboardFragment)
-                    .addToBackStack(null)
-                    .commit();
-        });
+        progressButton.setOnClickListener(v -> requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new PracticeProgressFragment())
+                .addToBackStack(null)
+                .commit());
 
         // Load user data
         loadUserData();
@@ -101,8 +97,9 @@ public class ProfileFragment extends Fragment {
             userRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String username = dataSnapshot.child("username").getValue(String.class);
-                    Integer score = dataSnapshot.child("totalPoints").getValue(Integer.class);
+                        if (getView() == null) return;
+
+                        String username = dataSnapshot.child("username").getValue(String.class);
                     String photoUrl = dataSnapshot.child("photoUrl").getValue(String.class);
                     
                     // Check admin status
@@ -119,9 +116,9 @@ public class ProfileFragment extends Fragment {
                         usernameText.setText(username);
                     }
                     
-                    if (score != null) {
-                        scoreText.setText("Score: " + score);
-                    }
+                    long solved = dataSnapshot.child("practiceProgress").child("solved").getChildrenCount();
+                    solvedCount.setText(solved + (solved == 1
+                            ? " exercise completed" : " exercises completed"));
                     
                     // Get followers and following counts
                     if (dataSnapshot.hasChild("followers")) {

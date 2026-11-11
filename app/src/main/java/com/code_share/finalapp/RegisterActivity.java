@@ -90,7 +90,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         Map<String, Object> userData = new HashMap<>();
                                         userData.put("username", username);
                                         userData.put("email", email);
-                                        userData.put("score", 0);
 
                                         // Save ru.myitschool.finalproject.User data to Firebase Database
                                         databaseRef.child("users").child(userId).setValue(userData)
@@ -114,5 +113,4 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 }
-
 

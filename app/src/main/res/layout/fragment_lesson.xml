@@ -7,35 +7,62 @@
 
     <TextView
         android:id="@+id/lessons_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Python Learning Path"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="Your learning path"
         android:textColor="@color/text_primary"
-        android:textSize="28sp"
+        android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/lessons_subtitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Master Python programming from basics to advanced concepts"
+        android:layout_marginEnd="24dp"
+        android:text="Build your problem-solving skills, one concept at a time."
         android:textColor="@color/text_secondary"
-        android:textSize="16sp"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lessons_title" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/open_playground_button"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="24dp"
+        android:text="Open Python playground"
+        android:textAllCaps="false"
+        android:textColor="@color/background_dark"
+        app:backgroundTint="@color/accent"
+        app:cornerRadius="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lessons_subtitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lesson_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="12dp"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lessons_subtitle" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/open_playground_button" />
 
-</androidx.constraintlayout.widget.ConstraintLayout> 
+</androidx.constraintlayout.widget.ConstraintLayout>

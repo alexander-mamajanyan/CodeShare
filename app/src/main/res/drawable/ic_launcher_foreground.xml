@@ -4,22 +4,30 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    
-    <!-- Left bracket -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M35,35L45,25L45,83L35,73"/>
-    
-    <!-- Right bracket -->
+        android:fillColor="@android:color/transparent"
+        android:pathData="M42,39L32,54L42,69"
+        android:strokeColor="#F5F7FF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="5" />
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M73,25L63,35L63,73L73,83"/>
-    
-    <!-- Share arrow -->
+        android:fillColor="@android:color/transparent"
+        android:pathData="M66,39L76,54L66,69"
+        android:strokeColor="#F5F7FF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:strokeWidth="5" />
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M54,35L54,73"/>
+        android:fillColor="@android:color/transparent"
+        android:pathData="M59,37L49,71"
+        android:strokeColor="#B8F36B"
+        android:strokeLineCap="round"
+        android:strokeWidth="5" />
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M44,45L54,35L64,45"/>
+        android:fillColor="#B8F36B"
+        android:pathData="M59,34m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0" />
+    <path
+        android:fillColor="#B8F36B"
+        android:pathData="M49,74m-3,0a3,3 0,1 0,6 0a3,3 0,1 0,-6 0" />
 </vector>

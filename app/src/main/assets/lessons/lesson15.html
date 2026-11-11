@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lists and Dictionaries</title>
+</head>
+<body>
+    <h1>Lists and Dictionaries</h1>
+    <p>Collections let one variable hold multiple related values. Python lists are ordered; dictionaries associate keys with values.</p>
+
+    <h2>Lists</h2>
+    <pre><code>colors = ["blue", "green", "purple"]
+print(colors[0])       # blue
+print(colors[-1])      # purple
+
+colors.append("gold")
+colors[1] = "teal"
+print(len(colors))</code></pre>
+    <p>List indexes start at zero. Negative indexes count backward from the end. Common operations include <code>append()</code>, <code>pop()</code>, and <code>len()</code>.</p>
+    <pre><code>for color in colors:
+    print(color)</code></pre>
+
+    <h2>Dictionaries</h2>
+    <pre><code>student = {
+    "name": "Kai",
+    "grade": 10
+}
+
+print(student["name"])
+student["grade"] = 11
+student["active"] = True</code></pre>
+    <p>A dictionary stores key-value pairs. Use a key to read or update a value. The <code>in</code> operator can check whether a key exists.</p>
+    <pre><code>if "grade" in student:
+    print(student["grade"])</code></pre>
+
+    <h2>Choosing a collection</h2>
+    <ul>
+        <li>Use a list for an ordered sequence of items.</li>
+        <li>Use a dictionary when each value should be looked up by a meaningful key.</li>
+    </ul>
+
+    <h2>Try it</h2>
+    <ol>
+        <li>Create a list of five numbers and calculate their average.</li>
+        <li>Create a dictionary for a book with a title and author, then print a sentence using both values.</li>
+    </ol>
+</body>
+</html>

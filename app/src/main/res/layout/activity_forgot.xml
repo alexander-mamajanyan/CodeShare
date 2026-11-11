@@ -5,62 +5,102 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_cream"
+    android:background="@color/background_dark"
     tools:context=".ForgotActivity">
 
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/coda"
-        android:text="Reset Password"
-        android:backgroundTint="@color/pale_mint"
-        android:textColor="@color/baby_blue"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.616" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/email_frg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:textColorHint="@color/baby_blue"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="32dp">
 
-        android:inputType="text"
-        android:hint="email"
-        android:textColor="@color/charcoal"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/reset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.912" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.14"
+                android:text="CODE SHARE  /  ACCOUNT"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="318dp"
-        android:layout_height="71dp"
-        android:fontFamily="@font/coda"
-        android:text="Type above the email, you want to receive reset link"
-        android:textAlignment="center"
-        android:textColor="@color/charcoal"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="247dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="Reset your password"
+                android:textColor="@color/text_primary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/pale_mint"
-        android:textColor="@color/baby_blue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reset" />
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:text="Enter the email linked to your account and we’ll send you a reset link."
+                android:textColor="@color/text_secondary"
+                android:textSize="15sp"
+                android:lineSpacingExtra="3dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxStrokeColor="@color/primary"
+                app:hintTextColor="@color/primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_frg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true"
+                    android:textColor="@color/text_primary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/reset"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="22dp"
+                android:text="Send reset link"
+                android:textAllCaps="false"
+                android:textColor="@color/background_dark"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/accent"
+                app:cornerRadius="16dp"
+                app:elevation="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="8dp"
+                android:text="Back to log in"
+                android:textAllCaps="false"
+                android:textColor="@color/text_secondary" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

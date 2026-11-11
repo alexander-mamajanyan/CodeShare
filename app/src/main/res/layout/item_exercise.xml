@@ -3,37 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="7dp"
     app:cardBackgroundColor="@color/charcoal"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/surface_outline"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/exercise_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary"
-            android:textSize="18sp"
+            android:textSize="19sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/exercise_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:textColor="@color/text_secondary"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:orientation="horizontal">
 
             <TextView
@@ -41,10 +46,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/difficulty_background"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/text_primary"
-                android:textSize="12sp" />
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/exercise_category"
@@ -52,9 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:background="@drawable/category_background"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/text_primary"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:textColor="@color/primary"
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>

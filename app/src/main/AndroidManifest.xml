@@ -51,13 +51,7 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         
         <activity
             android:name=".MakeAdminActivity"
@@ -68,15 +62,6 @@
             </intent-filter>
         </activity>
         
-        <activity
-            android:name=".ScoreManagerActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

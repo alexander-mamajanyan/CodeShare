@@ -14,3 +14,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+/editor/node_modules/
+__pycache__/
+*.py[cod]

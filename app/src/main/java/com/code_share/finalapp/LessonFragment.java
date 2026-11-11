@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,8 @@ public class LessonFragment extends Fragment implements LessonAdapter.OnLessonCl
         // Initialize RecyclerView
         lessonList = view.findViewById(R.id.lesson_list);
         lessonList.setLayoutManager(new LinearLayoutManager(getContext()));
+        MaterialButton playgroundButton = view.findViewById(R.id.open_playground_button);
+        playgroundButton.setOnClickListener(v -> openPlayground());
 
         // Create lessons list
         lessons = createLessonList();
@@ -60,9 +63,67 @@ public class LessonFragment extends Fragment implements LessonAdapter.OnLessonCl
         return view;
     }
 
+    private void openPlayground() {
+        CodeEditorFragment playground = new CodeEditorFragment();
+        Bundle args = new Bundle();
+        args.putBoolean("playground", true);
+        args.putString("code", "# Write and run Python here\n\nprint(\"Hello, world!\")\n");
+        playground.setArguments(args);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, playground)
+                .addToBackStack(null)
+                .commit();
+    }
+
     private List<com.code_share.finalapp.Lesson> createLessonList() {
         List<Lesson> lessons = new ArrayList<>();
-        
+
+        lessons.add(new Lesson(
+            "Python Basics",
+            "Write your first Python statements and work with values",
+            "Learn Python syntax, variables, basic types, and input/output.",
+            "lessons/lesson11.html",
+            true,
+            "Variables • Types • print() • input()"
+        ));
+
+        lessons.add(new Lesson(
+            "Conditions and Boolean Logic",
+            "Make programs choose what to do",
+            "Use comparisons and if/elif/else to make decisions in Python.",
+            "lessons/lesson12.html",
+            false,
+            "Booleans • Comparisons • if / elif / else"
+        ));
+
+        lessons.add(new Lesson(
+            "Loops and Iteration",
+            "Repeat work with for and while loops",
+            "Use loops, range(), and loop control to process repeated tasks.",
+            "lessons/lesson13.html",
+            false,
+            "for • while • range() • break"
+        ));
+
+        lessons.add(new Lesson(
+            "Functions",
+            "Organize reusable code with functions",
+            "Define functions, pass arguments, return values, and document behavior.",
+            "lessons/lesson14.html",
+            false,
+            "def • Parameters • return • Scope"
+        ));
+
+        lessons.add(new Lesson(
+            "Lists and Dictionaries",
+            "Store and work with collections of data",
+            "Use lists for ordered values and dictionaries for key-value data.",
+            "lessons/lesson15.html",
+            false,
+            "Lists • Dictionaries • Iteration"
+        ));
+
         // Basic Data Structures
         lessons.add(new com.code_share.finalapp.Lesson(
             "Introduction to DSA",
@@ -229,11 +290,11 @@ public class LessonFragment extends Fragment implements LessonAdapter.OnLessonCl
                 for (int i = 0; i < lessons.size(); i++) {
                     Lesson lesson = lessons.get(i);
                     if (i == 0) {
-                        lesson.setAvailable(true);  // First ru.myitschool.finalproject.Lesson is always available
+                        lesson.setAvailable(true);
                     } else {
-                        // A ru.myitschool.finalproject.Lesson is available if the previous ru.myitschool.finalproject.Lesson is completed
                         String previousLessonTitle = lessons.get(i - 1).getTitle();
-                        lesson.setAvailable(completedLessons.contains(previousLessonTitle));
+                        lesson.setAvailable(completedLessons.contains(lesson.getTitle())
+                                || completedLessons.contains(previousLessonTitle));
                     }
                 }
 
@@ -273,8 +334,6 @@ public class LessonFragment extends Fragment implements LessonAdapter.OnLessonCl
                 .commit();
     }
 } 
-
-
 
 
 

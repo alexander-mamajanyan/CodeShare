@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops and Iteration</title>
+</head>
+<body>
+    <h1>Loops and Iteration</h1>
+    <p>Loops repeat a block of code. Use a <code>for</code> loop when working through a sequence, and a <code>while</code> loop when repetition depends on a condition.</p>
+
+    <h2>for loops and range()</h2>
+    <pre><code>for number in range(1, 6):
+    print(number)</code></pre>
+    <p><code>range(1, 6)</code> produces 1 through 5: the starting value is included and the ending value is not. You can also loop through text or a list.</p>
+    <pre><code>for letter in "cat":
+    print(letter)</code></pre>
+
+    <h2>while loops</h2>
+    <pre><code>count = 3
+while count > 0:
+    print(count)
+    count -= 1
+print("Go!")</code></pre>
+    <p>Make sure something inside a <code>while</code> loop can eventually make its condition false. Otherwise the loop may never stop.</p>
+
+    <h2>Accumulating a result</h2>
+    <pre><code>total = 0
+for number in range(1, 5):
+    total += number
+print(total)  # 10</code></pre>
+    <p><code>break</code> exits a loop early. <code>continue</code> skips the rest of the current iteration and moves to the next one.</p>
+
+    <h2>Try it</h2>
+    <ol>
+        <li>Use a loop to print the multiples of 3 from 3 to 30.</li>
+        <li>Calculate the sum of all numbers from 1 through 100.</li>
+        <li>Loop through a word and count how many vowels it contains.</li>
+    </ol>
+</body>
+</html>

@@ -14,21 +14,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="20dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="32dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="18dp"
+                android:text="Your profile"
+                android:textColor="@color/text_primary"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="12dp"
                 app:cardBackgroundColor="@color/charcoal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/surface_outline"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="22dp">
 
                     <!-- Include admin profile image layout -->
                     <include
@@ -45,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:text="Username"
                         android:textColor="@color/text_primary"
-                        android:textSize="24sp"
+                        android:textSize="26sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
@@ -55,16 +69,16 @@
                         android:layout_height="wrap_content"
                         android:text="Email"
                         android:textColor="@color/text_secondary"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:layout_marginBottom="16dp"/>
 
                     <TextView
-                        android:id="@+id/score_text"
+                        android:id="@+id/solved_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Score: 0"
+                        android:text="0 exercises completed"
                         android:textColor="@color/text_primary"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:layout_marginBottom="16dp"/>
                         
                     <!-- Followers and Following Stats -->
@@ -72,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="20dp">
                         
                         <!-- Followers -->
                         <LinearLayout
@@ -80,7 +94,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingVertical="12dp">
                             
                             <TextView
                                 android:id="@+id/followers_count"
@@ -96,7 +111,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Followers"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="14sp"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                         
                         <!-- Following -->
@@ -105,7 +120,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:gravity="center">
+                            android:gravity="center"
+                            android:paddingVertical="12dp">
                             
                             <TextView
                                 android:id="@+id/following_count"
@@ -121,32 +137,32 @@
                                 android:layout_height="wrap_content"
                                 android:text="Following"
                                 android:textColor="@color/text_secondary"
-                                android:textSize="14sp"/>
+                                android:textSize="12sp"/>
                         </LinearLayout>
                     </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/settings_button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="52dp"
                         android:text="Settings"
-                        android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        android:textColor="@color/background_dark"
+                        app:backgroundTint="@color/accent"
+                        app:cornerRadius="14dp"
                         app:icon="@drawable/ic_settings"
                         app:iconTint="@color/text_primary"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/leaderboards_button"
+                        android:id="@+id/progress_button"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Leaderboards"
+                        android:layout_height="52dp"
+                        android:text="Learning progress"
+                        android:textAllCaps="false"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
-                        app:icon="@drawable/ic_medal_gold"
-                        app:iconTint="@color/text_primary"/>
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"/>
 
                 </LinearLayout>
 

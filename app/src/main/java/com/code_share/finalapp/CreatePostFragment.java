@@ -27,10 +27,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.json.JSONTokener;
+
 import java.util.UUID;
 
 public class CreatePostFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
+    private TextInputEditText titleInput;
     private TextInputEditText descriptionInput;
     private MaterialButton attachImageButton;
     private MaterialButton attachCodeButton;
@@ -56,6 +59,7 @@ public class CreatePostFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_post, container, false);
         
         // Initialize views
+        titleInput = view.findViewById(R.id.postTitleInput);
         descriptionInput = view.findViewById(R.id.postDescriptionInput);
         attachImageButton = view.findViewById(R.id.attachImageButton);
         attachCodeButton = view.findViewById(R.id.attachCodeButton);
@@ -124,14 +128,7 @@ public class CreatePostFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setSupportZoom(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
+        webSettings.setAllowContentAccess(false);
 
         codeEditor.setWebViewClient(new WebViewClient() {
             @Override
@@ -178,7 +175,12 @@ public class CreatePostFragment extends Fragment {
             return;
         }
 
+        String title = titleInput != null ? titleInput.getText().toString().trim() : "";
         String description = descriptionInput != null ? descriptionInput.getText().toString().trim() : "";
+        if (title.isEmpty()) {
+            titleInput.setError("Please enter a title");
+            return;
+        }
         if (description.isEmpty()) {
             Toast.makeText(getContext(), "Please enter a description", Toast.LENGTH_SHORT).show();
             return;
@@ -192,40 +194,36 @@ public class CreatePostFragment extends Fragment {
                 if (codeContent != null && !codeContent.isEmpty()) {
                     Log.d("CreatePostFragment", "Using code from WebAppInterface, length: " + codeContent.length());
                     if (imageUri != null) {
-                        uploadImageAndSavePost(description, codeContent);
+                        uploadImageAndSavePost(title, description, codeContent);
                     } else {
-                        savePost(description, codeContent, null);
+                        savePost(title, description, codeContent, null);
                     }
                     return;
                 }
                 
                 // If we don't have the code yet, try to get it directly from the editor
-                codeEditor.evaluateJavascript("javascript:getCode()", value -> {
+                codeEditor.evaluateJavascript("window.getCode()", value -> {
                     try {
-                        if (value != null && !value.equals("null")) {
-                            // Process the code content
-                            String processedCode = value.substring(1, value.length() - 1)
-                                    .replace("\\n", "\n")
-                                    .replace("\\\"", "\"")
-                                    .replace("\\'", "'")
-                                    .replace("\\\\", "\\");
+                        Object decoded = new JSONTokener(value).nextValue();
+                        if (decoded instanceof String) {
+                            String processedCode = (String) decoded;
                             
                             // Store the processed code for future use
                             codeContent = processedCode;
                             
                             Log.d("CreatePostFragment", "Processed code from JS, length: " + processedCode.length());
                             if (imageUri != null) {
-                                uploadImageAndSavePost(description, processedCode);
+                                uploadImageAndSavePost(title, description, processedCode);
                             } else {
-                                savePost(description, processedCode, null);
+                                savePost(title, description, processedCode, null);
                             }
                         } else {
                             // No code content found
                             Log.d("CreatePostFragment", "No code content found from JS call");
                             if (imageUri != null) {
-                                uploadImageAndSavePost(description, null);
+                                uploadImageAndSavePost(title, description, null);
                             } else {
-                                savePost(description, null, null);
+                                savePost(title, description, null, null);
                             }
                         }
                     } catch (Exception e) {
@@ -241,16 +239,16 @@ public class CreatePostFragment extends Fragment {
             }
         } else {
             if (imageUri != null) {
-                uploadImageAndSavePost(description, null);
+                uploadImageAndSavePost(title, description, null);
             } else {
-                savePost(description, null, null);
+                savePost(title, description, null, null);
             }
         }
     }
 
-    private void uploadImageAndSavePost(String description, String code) {
+    private void uploadImageAndSavePost(String title, String description, String code) {
         if (imageUri == null) {
-            savePost(description, code, null);
+            savePost(title, description, code, null);
             return;
         }
 
@@ -266,7 +264,7 @@ public class CreatePostFragment extends Fragment {
             @Override
             public void onSuccess(String imageUrl) {
                 progressDialog.dismiss();
-                savePost(description, code, imageUrl);
+                savePost(title, description, code, imageUrl);
             }
 
             @Override
@@ -279,7 +277,7 @@ public class CreatePostFragment extends Fragment {
         });
     }
 
-    private void savePost(String description, String code, String imageUrl) {
+    private void savePost(String title, String description, String code, String imageUrl) {
         try {
             String postId = UUID.randomUUID().toString();
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -287,6 +285,7 @@ public class CreatePostFragment extends Fragment {
             Post post = new Post();
             post.setId(postId);
             post.setUserId(userId);
+            post.setTitle(title);
             post.setDescription(description);
             post.setTimestamp(System.currentTimeMillis());
             
@@ -325,7 +324,4 @@ public class CreatePostFragment extends Fragment {
         }
     }
 } 
-
-
-
 

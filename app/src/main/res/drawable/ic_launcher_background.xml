@@ -4,9 +4,15 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    
-    <!-- Background circle -->
     <path
-        android:fillColor="#2196F3"
-        android:pathData="M0,0h108v108h-108z"/>
+        android:fillColor="#0B1020"
+        android:pathData="M0,0h108v108h-108z" />
+    <path
+        android:fillColor="#151D30"
+        android:pathData="M18,18h72a10,10 0,0 1,10 10v52a10,10 0,0 1,-10 10h-72a10,10 0,0 1,-10 -10v-52a10,10 0,0 1,10 -10z" />
+    <path
+        android:fillColor="@android:color/transparent"
+        android:pathData="M18,18h72a10,10 0,0 1,10 10v52a10,10 0,0 1,-10 10h-72a10,10 0,0 1,-10 -10v-52a10,10 0,0 1,10 -10z"
+        android:strokeColor="#34415D"
+        android:strokeWidth="1.5" />
 </vector>

@@ -13,13 +13,17 @@ public final class PythonExecutor {
     }
 
     public static String execute(Context context, String code) {
+        return execute(context, code, "");
+    }
+
+    public static String execute(Context context, String code, String input) {
         initialize(context);
         Python python = Python.getInstance();
         PyObject module = python.getModule("myhelper");
         if (module == null) {
             return "Error: Python helper module not available.";
         }
-        return module.callAttr("main", code).toString();
+        return module.callAttr("main", code, input == null ? "" : input).toString();
     }
 
     public static String executeMethod(Context context, String code, String methodName, List<String> inputs) {

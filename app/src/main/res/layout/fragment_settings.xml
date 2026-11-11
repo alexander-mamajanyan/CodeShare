@@ -34,8 +34,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/charcoal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/surface_elevated"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,12 +71,14 @@
                             
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/change_profile_image_button"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Change Profile Image"
+                            android:layout_weight="1"
+                            android:text="Change photo"
                             android:textColor="@color/text_primary"
-                            app:backgroundTint="@color/primary"
-                            app:cornerRadius="8dp"
+                            android:textAllCaps="false"
+                            app:backgroundTint="@color/surface_elevated"
+                            app:cornerRadius="14dp"
                             android:layout_marginStart="16dp" />
                             
                     </LinearLayout>
@@ -85,8 +89,9 @@
                         android:layout_height="wrap_content"
                         android:text="Change Username"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.button.MaterialButton
@@ -95,8 +100,9 @@
                         android:layout_height="wrap_content"
                         android:text="Change Password"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.button.MaterialButton
@@ -105,8 +111,9 @@
                         android:layout_height="wrap_content"
                         android:text="Change Email"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.button.MaterialButton
@@ -114,9 +121,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Delete Account"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/background_dark"
+                        android:textAllCaps="false"
                         app:backgroundTint="@color/error_red"
-                        app:cornerRadius="8dp"/>
+                        app:cornerRadius="14dp"/>
 
                 </LinearLayout>
 
@@ -128,8 +136,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/charcoal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/surface_elevated"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,28 +150,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Preferences"
+                        android:text="Appearance"
                         android:textColor="@color/text_primary"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="8dp"/>
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/dark_mode_switch"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Dark Mode"
+                        android:text="Dark theme is enabled"
                         android:textColor="@color/text_primary"
-                        android:checked="true"
-                        android:layout_marginBottom="8dp"/>
-
-                    <com.google.android.material.switchmaterial.SwitchMaterial
-                        android:id="@+id/notifications_switch"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enable Notifications"
-                        android:textColor="@color/text_primary"
-                        android:checked="true"/>
+                        android:textSize="15sp"
+                        android:paddingVertical="8dp"/>
 
                 </LinearLayout>
 
@@ -173,8 +174,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/charcoal"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/surface_elevated"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,8 +200,9 @@
                         android:layout_height="wrap_content"
                         android:text="About App"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.button.MaterialButton
@@ -207,8 +211,9 @@
                         android:layout_height="wrap_content"
                         android:text="Privacy Policy"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="@color/primary"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/surface_elevated"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"/>
                         
                     <com.google.android.material.button.MaterialButton
@@ -217,8 +222,9 @@
                         android:layout_height="wrap_content"
                         android:text="Admin Settings"
                         android:textColor="@color/text_primary"
-                        app:backgroundTint="#1E88E5"
-                        app:cornerRadius="8dp"
+                        android:textAllCaps="false"
+                        app:backgroundTint="@color/primary"
+                        app:cornerRadius="14dp"
                         android:layout_marginBottom="8dp"
                         android:visibility="gone"
                         app:icon="@drawable/ic_admin_star"
@@ -229,9 +235,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Logout"
-                        android:textColor="@color/text_primary"
+                        android:textColor="@color/background_dark"
+                        android:textAllCaps="false"
                         app:backgroundTint="@color/error_red"
-                        app:cornerRadius="8dp"/>
+                        app:cornerRadius="14dp"/>
 
                 </LinearLayout>
 

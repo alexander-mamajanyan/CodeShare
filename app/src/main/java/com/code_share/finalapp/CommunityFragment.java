@@ -114,7 +114,12 @@ public class CommunityFragment extends Fragment implements PostAdapter.OnPostInt
                 posts.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Post post = snapshot.getValue(Post.class);
-                    if (post != null && mAuth.getCurrentUser() != null && (friendIds.contains(post.getUserId()) || post.getUserId().equals(mAuth.getCurrentUser().getUid()))) {
+                    if (post != null && mAuth.getCurrentUser() != null) {
+                        post.setId(snapshot.getKey());
+                    }
+                    if (post != null && post.getUserId() != null && mAuth.getCurrentUser() != null
+                            && (friendIds.contains(post.getUserId())
+                            || post.getUserId().equals(mAuth.getCurrentUser().getUid()))) {
                         posts.add(post);
                     }
                 }
@@ -189,7 +194,8 @@ public class CommunityFragment extends Fragment implements PostAdapter.OnPostInt
     public void onShareClicked(Post post) {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        String shareText = post.getDescription() + "\n\nShared from CodeHub";
+        String title = post.getTitle() == null ? "" : post.getTitle() + "\n";
+        String shareText = title + post.getDescription() + "\n\nShared from CodeHub";
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
         startActivity(Intent.createChooser(shareIntent, "Share Post"));
     }
@@ -200,8 +206,5 @@ public class CommunityFragment extends Fragment implements PostAdapter.OnPostInt
         // ... existing code ...
     }
 } 
-
-
-
 
 

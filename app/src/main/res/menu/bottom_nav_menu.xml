@@ -11,7 +11,7 @@
         android:title="Practise" />
     <item
         android:id="@+id/navigation_community"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_share"
         android:title="Community" />
     <item
         android:id="@+id/navigation_messages"

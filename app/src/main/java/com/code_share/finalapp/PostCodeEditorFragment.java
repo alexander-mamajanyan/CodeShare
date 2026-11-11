@@ -9,11 +9,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import org.json.JSONException;
+import org.json.JSONTokener;
 
 public class PostCodeEditorFragment extends Fragment {
     private WebView codeEditor;
@@ -36,16 +40,18 @@ public class PostCodeEditorFragment extends Fragment {
 
         // Set up save button
         saveButton.setOnClickListener(v -> {
-            codeEditor.evaluateJavascript("javascript:sendCode()", code -> {
-                if (code != null && !code.equals("null")) {
-                    String codeText = code.substring(1, code.length() - 1);
-                    codeText = codeText.replace("\\n", "\n").replace("\\\"", "\"");
-                    
+            codeEditor.evaluateJavascript("window.sendCode()", value -> {
+                try {
+                    Object decoded = new JSONTokener(value).nextValue();
+                    if (!(decoded instanceof String)) {
+                        throw new JSONException("Editor returned no code.");
+                    }
                     Bundle result = new Bundle();
-                    result.putString("code", codeText);
+                    result.putString("code", (String) decoded);
                     getParentFragmentManager().setFragmentResult("code_result", result);
-                    
                     NavHostFragment.findNavController(this).navigateUp();
+                } catch (JSONException e) {
+                    Toast.makeText(requireContext(), "Couldn't read code from the editor.", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -58,14 +64,7 @@ public class PostCodeEditorFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAllowFileAccess(true);
-        webSettings.setAllowContentAccess(true);
-        webSettings.setAllowFileAccessFromFileURLs(true);
-        webSettings.setAllowUniversalAccessFromFileURLs(true);
-        webSettings.setBuiltInZoomControls(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setSupportZoom(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
+        webSettings.setAllowContentAccess(false);
 
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
@@ -84,7 +83,4 @@ public class PostCodeEditorFragment extends Fragment {
         }
     }
 } 
-
-
-
 
