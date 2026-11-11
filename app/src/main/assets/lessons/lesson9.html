@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Programming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dynamic Programming</h1>
+
+    <h2>Introduction to Dynamic Programming</h2>
+    <p>Dynamic Programming (DP) is a method for solving complex problems by breaking them down into simpler subproblems. It's particularly useful for optimization problems where the same subproblems are encountered multiple times.</p>
+
+    <h2>Key Concepts</h2>
+
+    <h3>1. Overlapping Subproblems</h3>
+    <p>When a problem can be broken down into subproblems that are reused several times.</p>
+
+    <h3>2. Optimal Substructure</h3>
+    <p>When an optimal solution to a problem contains optimal solutions to its subproblems.</p>
+
+    <h2>Common Dynamic Programming Problems</h2>
+
+    <h3>1. Fibonacci Numbers</h3>
+    <pre><code>def fibonacci(n):
+    if n <= 1:
+        return n
+    
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    
+    return dp[n]</code></pre>
+    <p>Time Complexity: O(n)</p>
+
+    <h3>2. Longest Common Subsequence</h3>
+    <pre><code>def lcs(str1, str2):
+    m, n = len(str1), len(str2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if str1[i - 1] == str2[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            else:
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+    
+    return dp[m][n]</code></pre>
+    <p>Time Complexity: O(m * n)</p>
+
+    <h3>3. Knapsack Problem</h3>
+    <pre><code>def knapsack(weights, values, capacity):
+    n = len(weights)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(
+                    values[i - 1] + dp[i - 1][w - weights[i - 1]],
+                    dp[i - 1][w]
+                )
+            else:
+                dp[i][w] = dp[i - 1][w]
+    
+    return dp[n][capacity]</code></pre>
+    <p>Time Complexity: O(n * capacity)</p>
+
+    <h2>Types of Dynamic Programming</h2>
+
+    <h3>1. Top-Down (Memoization)</h3>
+    <pre><code>def fibonacci_memo(n, memo=None):
+    if memo is None:
+        memo = {}
+    
+    if n in memo:
+        return memo[n]
+    
+    if n <= 1:
+        return n
+    
+    memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo)
+    return memo[n]</code></pre>
+
+    <h3>2. Bottom-Up (Tabulation)</h3>
+    <pre><code>def fibonacci_tab(n):
+    if n <= 1:
+        return n
+    
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    
+    return dp[n]</code></pre>
+
+    <div class="note">
+        <strong>When to Use Dynamic Programming:</strong>
+        <ul>
+            <li>When the problem can be broken down into overlapping subproblems</li>
+            <li>When the problem has optimal substructure</li>
+            <li>When you need to optimize a solution that has exponential time complexity</li>
+            <li>When you need to find all possible solutions or count the number of solutions</li>
+        </ul>
+    </div>
+
+    <h2>Common DP Patterns</h2>
+    <ul>
+        <li>1D Dynamic Programming</li>
+        <li>2D Dynamic Programming</li>
+        <li>Interval Dynamic Programming</li>
+        <li>Tree Dynamic Programming</li>
+        <li>Bitmask Dynamic Programming</li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement the longest increasing subsequence problem</li>
+        <li>Solve the coin change problem</li>
+        <li>Implement the matrix chain multiplication problem</li>
+        <li>Solve the edit distance problem</li>
+        <li>Implement the longest palindromic subsequence problem</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>What's the difference between memoization and tabulation?</li>
+        <li>How would you solve the longest common substring problem?</li>
+        <li>What's the optimal solution for the rod cutting problem?</li>
+        <li>How would you implement the minimum path sum in a grid?</li>
+        <li>What's the best way to solve the word break problem?</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+        <li>Identify the state and transitions clearly</li>
+        <li>Choose between top-down and bottom-up based on the problem</li>
+        <li>Optimize space complexity when possible</li>
+        <li>Handle edge cases properly</li>
+        <li>Consider the time and space trade-offs</li>
+    </ul>
+</body>
+</html> 

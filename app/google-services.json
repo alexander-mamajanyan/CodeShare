@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "331528842766",
+    "firebase_url": "https://code-share-e54e4-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "code-share-e54e4",
+    "storage_bucket": "code-share-e54e4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331528842766:android:6bba1dd972498f6a80d65f",
+        "android_client_info": {
+          "package_name": "com.code_share.finalapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuDzOxtVBeITdKUJVc-Abk62Srhhiv1vM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

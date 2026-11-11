@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greedy Algorithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f8f9fa;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Greedy Algorithms</h1>
+
+    <h2>Introduction to Greedy Algorithms</h2>
+    <p>Greedy algorithms make the locally optimal choice at each step, hoping to find a global optimum. They are particularly useful for optimization problems where making the best choice at each step leads to the best overall solution.</p>
+
+    <h2>Key Characteristics</h2>
+    <ul>
+        <li>Makes locally optimal choice at each step</li>
+        <li>Never reconsider previous choices</li>
+        <li>Often simpler and faster than other approaches</li>
+        <li>May not always find the optimal solution</li>
+    </ul>
+
+    <h2>Common Greedy Problems</h2>
+
+    <h3>1. Fractional Knapsack</h3>
+    <pre><code>def fractional_knapsack(weights, values, capacity):
+    items = list(zip(weights, values))
+    items.sort(key=lambda x: x[1]/x[0], reverse=True)
+    
+    total_value = 0
+    for weight, value in items:
+        if capacity >= weight:
+            total_value += value
+            capacity -= weight
+        else:
+            total_value += (value/weight) * capacity
+            break
+    
+    return total_value</code></pre>
+    <p>Time Complexity: O(n log n)</p>
+
+    <h3>2. Activity Selection</h3>
+    <pre><code>def activity_selection(start, finish):
+    n = len(start)
+    activities = list(zip(start, finish))
+    activities.sort(key=lambda x: x[1])
+    
+    selected = [0]
+    last_finish = activities[0][1]
+    
+    for i in range(1, n):
+        if activities[i][0] >= last_finish:
+            selected.append(i)
+            last_finish = activities[i][1]
+    
+    return selected</code></pre>
+    <p>Time Complexity: O(n log n)</p>
+
+    <h3>3. Huffman Coding</h3>
+    <pre><code>class HuffmanNode:
+    def __init__(self, char, freq):
+        self.char = char
+        self.freq = freq
+        self.left = None
+        self.right = None
+
+def build_huffman_tree(freq):
+    import heapq
+    heap = []
+    for char, freq in freq.items():
+        heapq.heappush(heap, (freq, HuffmanNode(char, freq)))
+    
+    while len(heap) > 1:
+        freq1, node1 = heapq.heappop(heap)
+        freq2, node2 = heapq.heappop(heap)
+        
+        internal = HuffmanNode(None, freq1 + freq2)
+        internal.left = node1
+        internal.right = node2
+        
+        heapq.heappush(heap, (freq1 + freq2, internal))
+    
+    return heap[0][1]</code></pre>
+    <p>Time Complexity: O(n log n)</p>
+
+    <div class="note">
+        <strong>When to Use Greedy Algorithms:</strong>
+        <ul>
+            <li>When the problem has optimal substructure</li>
+            <li>When making locally optimal choices leads to global optimum</li>
+            <li>When you need a fast solution and exact optimality isn't required</li>
+            <li>When the problem can be solved by making a series of choices</li>
+        </ul>
+    </div>
+
+    <h2>Common Greedy Problems</h2>
+    <ul>
+        <li>Job Scheduling</li>
+        <li>Minimum Spanning Tree (Kruskal's Algorithm)</li>
+        <li>Single-Source Shortest Path (Dijkstra's Algorithm)</li>
+        <li>Coin Change (when greedy works)</li>
+        <li>Task Scheduling</li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement the job scheduling problem</li>
+        <li>Write a function to find minimum number of platforms required for trains</li>
+        <li>Implement the coin change problem (when greedy works)</li>
+        <li>Create a function to find minimum number of arrows to burst balloons</li>
+        <li>Implement the task scheduler problem</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>When does the greedy approach fail?</li>
+        <li>How would you prove that a greedy algorithm is optimal?</li>
+        <li>What's the difference between greedy and dynamic programming?</li>
+        <li>How would you solve the job scheduling problem?</li>
+        <li>What's the best way to implement Huffman coding?</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+        <li>Prove the greedy choice property</li>
+        <li>Consider edge cases</li>
+        <li>Verify optimal substructure</li>
+        <li>Handle ties appropriately</li>
+        <li>Consider time and space complexity</li>
+    </ul>
+
+    <h2>Limitations</h2>
+    <ul>
+        <li>May not find the global optimum</li>
+        <li>Requires proof of optimality</li>
+        <li>Not suitable for all optimization problems</li>
+        <li>May need to consider multiple greedy strategies</li>
+        <li>Can be difficult to implement correctly</li>
+    </ul>
+</body>
+</html> 

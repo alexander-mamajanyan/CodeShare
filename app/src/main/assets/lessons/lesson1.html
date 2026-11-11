@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to DSA</title>
+    <style>
+        html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100%;
+            margin: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+            -webkit-overflow-scrolling: touch;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <h1>Introduction to Data Structures and Algorithms</h1>
+
+    <h2>What are Data Structures?</h2>
+    <p>Data structures are specialized formats for organizing, processing, retrieving, and storing data. They are fundamental building blocks of computer science and programming.</p>
+
+    <h3>Basic Data Structures</h3>
+    <ul>
+        <li><strong>Arrays:</strong> A collection of elements stored at contiguous memory locations</li>
+        <li><strong>Linked Lists:</strong> A linear data structure where elements are stored in nodes</li>
+        <li><strong>Stacks:</strong> A LIFO (Last In First Out) data structure</li>
+        <li><strong>Queues:</strong> A FIFO (First In First Out) data structure</li>
+        <li><strong>Trees:</strong> A hierarchical data structure</li>
+        <li><strong>Graphs:</strong> A non-linear data structure consisting of vertices and edges</li>
+        <li><strong>Hash Tables:</strong> A data structure that implements an associative array</li>
+        <li><strong>Heaps:</strong> A specialized tree-based data structure</li>
+    </ul>
+
+    <h2>What are Algorithms?</h2>
+    <p>An algorithm is a step-by-step procedure or formula for solving a problem. It's a set of instructions that takes some input, processes it, and produces an output.</p>
+
+    <h3>Algorithm Analysis</h3>
+    <p>We analyze algorithms in terms of:</p>
+    <ul>
+        <li><strong>Time Complexity:</strong> How long an algorithm takes to run</li>
+        <li><strong>Space Complexity:</strong> How much memory an algorithm uses</li>
+    </ul>
+
+    <h3>Example: Time Complexity</h3>
+    <pre><code>def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1</code></pre>
+    <p>Time Complexity: O(n) - Linear time</p>
+
+    <pre><code>def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1</code></pre>
+    <p>Time Complexity: O(log n) - Logarithmic time</p>
+
+    <div class="note">
+        <strong>Note:</strong> Understanding data structures and algorithms is crucial for:
+        <ul>
+            <li>Writing efficient code</li>
+            <li>Solving complex problems</li>
+            <li>Optimizing performance</li>
+            <li>Technical interviews</li>
+        </ul>
+    </div>
+
+    <h2>Next Steps</h2>
+    <p>In the following lessons, we will:</p>
+    <ol>
+        <li>Deep dive into each data structure</li>
+        <li>Learn implementation details</li>
+        <li>Practice common problems</li>
+        <li>Understand when to use each data structure</li>
+        <li>Master algorithm design techniques</li>
+    </ol>
+
+    <h2>Practice Exercises</h2>
+    <p>Try these exercises to test your understanding:</p>
+    <ol>
+        <li>Implement a basic array with operations (insert, delete, search)</li>
+        <li>Write a function to reverse a string</li>
+        <li>Create a simple stack implementation</li>
+        <li>Find the time complexity of your favorite algorithm</li>
+    </ol>
+</body>
+</html> 

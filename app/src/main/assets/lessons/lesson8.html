@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searching Algorithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Searching Algorithms</h1>
+    <p>This section covers various searching algorithms. We'll start with the basics and gradually move to more complex topics.</p>
+
+    <h2>1. Linear Search</h2>
+    <p>Linear search is a simple search algorithm that checks each element in a list one by one until it finds the target element or reaches the end of the list.</p>
+    <pre><code>function linearSearch(arr, target) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) {
+            return i;
+        }
+    }
+    return -1;
+}</code></pre>
+
+    <h2>2. Binary Search</h2>
+    <p>Binary search is a more efficient search algorithm compared to linear search. It works on sorted arrays. The idea is to divide the array into two halves and compare the target element with the middle element. If the target element is greater than the middle element, it searches in the right half; otherwise, it searches in the left half.</p>
+    <pre><code>function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+
+        if (arr[mid] === target) {
+            return mid;
+        }
+
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>3. Interpolation Search</h2>
+    <p>Interpolation search is an improvement over binary search for uniformly distributed data. It works by estimating the position of the target element based on the distribution of data.</p>
+    <pre><code>function interpolationSearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right && target >= arr[left] && target <= arr[right]) {
+        let pos = left + Math.floor(((target - arr[left]) * (right - left)) / (arr[right] - arr[left]));
+
+        if (arr[pos] === target) {
+            return pos;
+        }
+
+        if (arr[pos] < target) {
+            left = pos + 1;
+        } else {
+            right = pos - 1;
+        }
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>4. Jump Search</h2>
+    <p>Jump search is a searching algorithm for sorted arrays. The basic idea is to check fewer elements compared to linear search by jumping ahead by fixed steps or skipping some elements in place of searching all elements.</p>
+    <pre><code>function jumpSearch(arr, target) {
+    let n = arr.length;
+    let step = Math.floor(Math.sqrt(n));
+    let prev = 0;
+
+    while (arr[Math.min(step, n) - 1] < target) {
+        prev = step;
+        step += Math.floor(Math.sqrt(n));
+        if (prev >= n) {
+            return -1;
+        }
+    }
+
+    while (arr[prev] < target) {
+        prev++;
+        if (prev === Math.min(step, n)) {
+            return -1;
+        }
+    }
+
+    if (arr[prev] === target) {
+        return prev;
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>5. Exponential Search</h2>
+    <p>Exponential search is also known as doubling search or galloping search. It is an algorithm for searching for an element in a sorted array. The idea is to start with an interval covering the whole array and then double the interval until an interval is found that contains the target element.</p>
+    <pre><code>function exponentialSearch(arr, target) {
+    if (arr[0] === target) {
+        return 0;
+    }
+    let i = 1;
+    while (i < arr.length && arr[i] <= target) {
+        i *= 2;
+    }
+    return binarySearch(arr, target, i / 2, Math.min(i, arr.length - 1));
+}</code></pre>
+
+    <h2>6. Fibonacci Search</h2>
+    <p>Fibonacci search is a searching algorithm. It is based on Fibonacci numbers. The idea is to compare the target element with the elements present in the Fibonacci series. If the target element is found in the series, we return the index of the target element. If the target element is not found in the series, we return -1.</p>
+    <pre><code>function fibonacciSearch(arr, target) {
+    let n = arr.length;
+    let fib2 = 0;
+    let fib1 = 1;
+    let fib = fib2 + fib1;
+
+    while (fib < n) {
+        fib2 = fib1;
+        fib1 = fib;
+        fib = fib2 + fib1;
+    }
+
+    let offset = -1;
+
+    while (fib > 1) {
+        let i = Math.min(offset + fib2, n - 1);
+
+        if (arr[i] < target) {
+            fib = fib1;
+            fib1 = fib2;
+            fib2 = fib - fib1;
+            offset = i;
+        } else if (arr[i] > target) {
+            fib = fib2;
+            fib1 = fib1 - fib2;
+            fib2 = fib - fib1;
+        } else {
+            return i;
+        }
+    }
+
+    if (fib1 && arr[n - 1] === target) {
+        return n - 1;
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>7. Ternary Search</h2>
+    <p>Ternary search is a divide and conquer algorithm that can be used to find an element in an array. It is similar to binary search where you divide the array into three parts but it does so in a way that allows you to skip over entire subarrays in a single step.</p>
+    <pre><code>function ternarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+
+    while (left <= right) {
+        let mid1 = left + Math.floor((right - left) / 3);
+        let mid2 = right - Math.floor((right - left) / 3);
+
+        if (arr[mid1] === target) {
+            return mid1;
+        }
+        if (arr[mid2] === target) {
+            return mid2;
+        }
+
+        if (target < arr[mid1]) {
+            right = mid1 - 1;
+        } else if (target > arr[mid2]) {
+            left = mid2 + 1;
+        } else {
+            left = mid1 + 1;
+            right = mid2 - 1;
+        }
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>8. Sublist Search</h2>
+    <p>Sublist search is a searching algorithm that is used to find a given list in a larger list. It is also known as the linked list algorithm.</p>
+    <pre><code>function sublistSearch(mainList, subList) {
+    let n = mainList.length;
+    let m = subList.length;
+
+    for (let i = 0; i <= n - m; i++) {
+        let j;
+        for (j = 0; j < m; j++) {
+            if (mainList[i + j] !== subList[j]) {
+                break;
+            }
+        }
+        if (j === m) {
+            return i;
+        }
+    }
+
+    return -1;
+}</code></pre>
+
+    <h2>9. Boyer-Moore Algorithm</h2>
+    <p>Boyer-Moore algorithm is a string searching algorithm. It uses two heuristics to speed up the search process: bad character rule and good suffix rule.</p>
+ 

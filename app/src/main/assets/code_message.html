@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Message</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+        .code-container {
+            font-family: monospace;
+            font-size: 14px;
+            color: #FFFFFF;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 8px;
+            line-height: 1.5;
+            background: transparent;
+        }
+        pre {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <pre class="code-container" id="codeContainer"></pre>
+    <script>
+        function initEditor(code) {
+            const container = document.getElementById('codeContainer');
+            container.textContent = code;
+            container.style.backgroundColor = 'transparent';
+        }
+    </script>
+</body>
+</html> 

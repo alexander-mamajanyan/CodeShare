@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Tables</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hash Tables</h1>
+
+    <h2>What is a Hash Table?</h2>
+    <p>A hash table is a data structure that implements an associative array abstract data type, a structure that can map keys to values. It uses a hash function to compute an index into an array of buckets or slots, from which the desired value can be found.</p>
+
+    <h3>Hash Function</h3>
+    <p>A hash function is any function that can be used to map data of arbitrary size to fixed-size values. The values returned by a hash function are called hash values, hash codes, digests, or simply hashes.</p>
+
+    <pre><code>def simple_hash(key, size):
+    return key % size
+
+def djb2_hash(key):
+    hash_value = 5381
+    for char in str(key):
+        hash_value = ((hash_value << 5) + hash_value) + ord(char)
+    return hash_value</code></pre>
+
+    <h3>Basic Hash Table Implementation</h3>
+    <pre><code>class HashTable:
+    def __init__(self, size):
+        self.size = size
+        self.table = [None] * size
+
+    def hash(self, key):
+        return key % self.size
+
+    def insert(self, key, value):
+        index = self.hash(key)
+        self.table[index] = value
+
+    def get(self, key):
+        index = self.hash(key)
+        return self.table[index]
+
+    def remove(self, key):
+        index = self.hash(key)
+        self.table[index] = None</code></pre>
+
+    <h2>Collision Resolution</h2>
+    <p>When two different keys hash to the same index, a collision occurs. There are several methods to handle collisions:</p>
+
+    <h3>1. Chaining (Separate Chaining)</h3>
+    <pre><code>class HashTableChaining:
+    def __init__(self, size):
+        self.size = size
+        self.table = [[] for _ in range(size)]
+
+    def insert(self, key, value):
+        index = self.hash(key)
+        self.table[index].append((key, value))
+
+    def get(self, key):
+        index = self.hash(key)
+        for k, v in self.table[index]:
+            if k == key:
+                return v
+        return None</code></pre>
+
+    <h3>2. Open Addressing</h3>
+    <pre><code>class HashTableOpenAddressing:
+    def __init__(self, size):
+        self.size = size
+        self.table = [None] * size
+
+    def linear_probe(self, index):
+        return (index + 1) % self.size
+
+    def insert(self, key, value):
+        index = self.hash(key)
+        while self.table[index] is not None:
+            index = self.linear_probe(index)
+        self.table[index] = (key, value)
+
+    def get(self, key):
+        index = self.hash(key)
+        while self.table[index] is not None:
+            if self.table[index][0] == key:
+                return self.table[index][1]
+            index = self.linear_probe(index)
+        return None</code></pre>
+
+    <div class="note">
+        <strong>Load Factor:</strong>
+        <p>The load factor of a hash table is the ratio of the number of elements stored to the size of the table. A high load factor can lead to more collisions and slower performance.</p>
+        <pre><code>load_factor = number_of_elements / table_size</code></pre>
+    </div>
+
+    <h2>Common Applications</h2>
+    <ul>
+        <li>Database indexing</li>
+        <li>Caching</li>
+        <li>Symbol tables in compilers</li>
+        <li>Password hashing</li>
+        <li>File systems</li>
+    </ul>
+
+    <h2>Time Complexity Analysis</h2>
+    <ul>
+        <li>Average Case:
+            <ul>
+                <li>Insert: O(1)</li>
+                <li>Search: O(1)</li>
+                <li>Delete: O(1)</li>
+            </ul>
+        </li>
+        <li>Worst Case:
+            <ul>
+                <li>Insert: O(n)</li>
+                <li>Search: O(n)</li>
+                <li>Delete: O(n)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement a hash table with chaining</li>
+        <li>Implement a hash table with linear probing</li>
+        <li>Write a function to find the first non-repeating character in a string using a hash table</li>
+        <li>Implement a hash table that can handle dynamic resizing</li>
+        <li>Write a function to find pairs of numbers that sum to a target value using a hash table</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>How would you handle collisions in a hash table?</li>
+        <li>What's the difference between a hash table and a hash map?</li>
+        <li>How would you implement a hash table that can handle dynamic resizing?</li>
+        <li>What are the advantages and disadvantages of different collision resolution strategies?</li>
+        <li>How would you design a hash function for strings?</li>
+    </ul>
+
+    <h2>Best Practices</h2>
+    <ul>
+        <li>Choose a good hash function that minimizes collisions</li>
+        <li>Keep the load factor below 0.75</li>
+        <li>Implement proper collision resolution</li>
+        <li>Consider the trade-offs between different collision resolution strategies</li>
+        <li>Handle edge cases and error conditions</li>
+    </ul>
+</body>
+</html> 

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trees and Graphs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trees and Graphs</h1>
+
+    <h2>Trees</h2>
+    <p>A tree is a hierarchical data structure consisting of nodes connected by edges. Each node can have multiple children but only one parent.</p>
+
+    <h3>Tree Terminology</h3>
+    <ul>
+        <li><strong>Root:</strong> The topmost node</li>
+        <li><strong>Parent:</strong> A node that has children</li>
+        <li><strong>Child:</strong> A node connected to its parent</li>
+        <li><strong>Leaf:</strong> A node with no children</li>
+        <li><strong>Height:</strong> Length of path from root to deepest leaf</li>
+        <li><strong>Depth:</strong> Length of path from root to a node</li>
+        <li><strong>Level:</strong> Set of nodes at same depth</li>
+    </ul>
+
+    <h3>Binary Tree Implementation</h3>
+    <pre><code>class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        if not self.root:
+            self.root = TreeNode(data)
+        else:
+            self._insert_recursive(self.root, data)
+
+    def _insert_recursive(self, node, data):
+        if data < node.data:
+            if node.left:
+                self._insert_recursive(node.left, data)
+            else:
+                node.left = TreeNode(data)
+        else:
+            if node.right:
+                self._insert_recursive(node.right, data)
+            else:
+                node.right = TreeNode(data)</code></pre>
+
+    <h3>Tree Traversals</h3>
+    <pre><code>def inorder_traversal(node):
+    if node:
+        inorder_traversal(node.left)
+        print(node.data)
+        inorder_traversal(node.right)
+
+def preorder_traversal(node):
+    if node:
+        print(node.data)
+        preorder_traversal(node.left)
+        preorder_traversal(node.right)
+
+def postorder_traversal(node):
+    if node:
+        postorder_traversal(node.left)
+        postorder_traversal(node.right)
+        print(node.data)</code></pre>
+
+    <h2>Graphs</h2>
+    <p>A graph is a non-linear data structure consisting of vertices (nodes) and edges that connect these vertices.</p>
+
+    <h3>Graph Types</h3>
+    <ul>
+        <li><strong>Directed Graph:</strong> Edges have direction</li>
+        <li><strong>Undirected Graph:</strong> Edges have no direction</li>
+        <li><strong>Weighted Graph:</strong> Edges have weights</li>
+        <li><strong>Unweighted Graph:</strong> Edges have no weights</li>
+    </ul>
+
+    <h3>Graph Implementation</h3>
+    <pre><code>class Graph:
+    def __init__(self):
+        self.vertices = {}
+        self.edges = {}
+
+    def add_vertex(self, vertex):
+        if vertex not in self.vertices:
+            self.vertices[vertex] = []
+            self.edges[vertex] = {}
+
+    def add_edge(self, from_vertex, to_vertex, weight=1):
+        if from_vertex not in self.vertices:
+            self.add_vertex(from_vertex)
+        if to_vertex not in self.vertices:
+            self.add_vertex(to_vertex)
+        self.vertices[from_vertex].append(to_vertex)
+        self.edges[from_vertex][to_vertex] = weight</code></pre>
+
+    <h3>Graph Traversals</h3>
+    <pre><code>def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(start)
+    for next_vertex in graph.vertices[start]:
+        if next_vertex not in visited:
+            dfs(graph, next_vertex, visited)
+
+def bfs(graph, start):
+    visited = set()
+    queue = [start]
+    visited.add(start)
+    while queue:
+        vertex = queue.pop(0)
+        print(vertex)
+        for next_vertex in graph.vertices[vertex]:
+            if next_vertex not in visited:
+                visited.add(next_vertex)
+                queue.append(next_vertex)</code></pre>
+
+    <div class="note">
+        <strong>Common Applications:</strong>
+        <ul>
+            <li>Trees:
+                <ul>
+                    <li>File systems</li>
+                    <li>Organization charts</li>
+                    <li>Decision trees</li>
+                    <li>Expression trees</li>
+                </ul>
+            </li>
+            <li>Graphs:
+                <ul>
+                    <li>Social networks</li>
+                    <li>Road maps</li>
+                    <li>Computer networks</li>
+                    <li>Dependency graphs</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <h2>Time Complexity Analysis</h2>
+    <ul>
+        <li>Tree Operations:
+            <ul>
+                <li>Insert: O(log n) for balanced trees, O(n) worst case</li>
+                <li>Search: O(log n) for balanced trees, O(n) worst case</li>
+                <li>Delete: O(log n) for balanced trees, O(n) worst case</li>
+            </ul>
+        </li>
+        <li>Graph Operations:
+            <ul>
+                <li>DFS: O(V + E)</li>
+                <li>BFS: O(V + E)</li>
+                <li>Add vertex: O(1)</li>
+                <li>Add edge: O(1)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement a binary search tree</li>
+        <li>Write a function to check if a tree is balanced</li>
+        <li>Find the shortest path between two vertices in a graph</li>
+        <li>Detect cycles in a directed graph</li>
+        <li>Implement topological sort for a directed acyclic graph</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>How would you implement a binary search tree?</li>
+        <li>What's the difference between DFS and BFS?</li>
+        <li>How would you detect a cycle in a graph?</li>
+        <li>What's the difference between a tree and a graph?</li>
+        <li>How would you find the lowest common ancestor in a binary tree?</li>
+    </ul>
+</body>
+</html> 

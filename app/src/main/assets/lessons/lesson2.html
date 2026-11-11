@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays and Strings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Arrays and Strings</h1>
+
+    <h2>Arrays</h2>
+    <p>An array is a linear data structure that collects elements of the same data type and stores them in contiguous and adjacent memory locations.</p>
+
+    <h3>Array Operations</h3>
+    <pre><code># Creating an array
+numbers = [1, 2, 3, 4, 5]
+
+# Accessing elements
+first_element = numbers[0]  # 1
+last_element = numbers[-1]  # 5
+
+# Modifying elements
+numbers[0] = 10  # [10, 2, 3, 4, 5]
+
+# Adding elements
+numbers.append(6)  # [10, 2, 3, 4, 5, 6]
+numbers.insert(0, 0)  # [0, 10, 2, 3, 4, 5, 6]
+
+# Removing elements
+numbers.pop()  # [0, 10, 2, 3, 4, 5]
+numbers.remove(10)  # [0, 2, 3, 4, 5]</code></pre>
+
+    <h3>2D Arrays (Matrices)</h3>
+    <pre><code># Creating a 2D array
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+# Accessing elements
+element = matrix[1][2]  # 6
+
+# Iterating through a 2D array
+for row in matrix:
+    for element in row:
+        print(element)</code></pre>
+
+    <h2>Strings</h2>
+    <p>A string is a sequence of characters. In Python, strings are immutable, meaning they cannot be changed after creation.</p>
+
+    <h3>String Operations</h3>
+    <pre><code># Creating strings
+text = "Hello, World!"
+name = 'Python'
+
+# String concatenation
+greeting = "Hello, " + name  # "Hello, Python"
+greeting = f"Hello, {name}"  # Using f-strings
+
+# String methods
+text.upper()  # "HELLO, WORLD!"
+text.lower()  # "hello, world!"
+text.split()  # ["Hello,", "World!"]
+text.replace("World", "Python")  # "Hello, Python!"</code></pre>
+
+    <h3>String Manipulation</h3>
+    <pre><code># Reversing a string
+def reverse_string(s):
+    return s[::-1]  # Using slicing
+
+# Checking palindrome
+def is_palindrome(s):
+    return s == s[::-1]
+
+# Counting characters
+def count_chars(s):
+    char_count = {}
+    for char in s:
+        char_count[char] = char_count.get(char, 0) + 1
+    return char_count</code></pre>
+
+    <div class="note">
+        <strong>Common String Problems:</strong>
+        <ul>
+            <li>String reversal</li>
+            <li>Palindrome checking</li>
+            <li>Anagram detection</li>
+            <li>Longest substring without repeating characters</li>
+            <li>String compression</li>
+        </ul>
+    </div>
+
+    <h2>Time Complexity Analysis</h2>
+    <ul>
+        <li>Array access: O(1)</li>
+        <li>Array insertion/deletion: O(n)</li>
+        <li>String concatenation: O(n)</li>
+        <li>String slicing: O(k) where k is the size of the slice</li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement a function to rotate an array by k positions</li>
+        <li>Write a function to find the longest palindrome in a string</li>
+        <li>Create a function to multiply two matrices</li>
+        <li>Implement a function to check if two strings are anagrams</li>
+        <li>Write a function to compress a string (e.g., "aabbbcccc" → "a2b3c4")</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>How would you implement a dynamic array?</li>
+        <li>What's the difference between a string and a character array?</li>
+        <li>How would you handle string manipulation in a memory-constrained environment?</li>
+        <li>What are the trade-offs between different string concatenation methods?</li>
+    </ul>
+</body>
+</html> 

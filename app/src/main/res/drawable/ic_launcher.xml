@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Background circle -->
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M54,54m-54,0a54,54 0,1 1,108 0a54,54 0,1 1,-108 0"/>
+    
+    <!-- Code brackets -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,40L40,30L40,78L30,68"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M78,30L68,40L68,68L78,78"/>
+    
+    <!-- Share icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,40L54,68"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,50L54,40L64,50"/>
+</vector> 

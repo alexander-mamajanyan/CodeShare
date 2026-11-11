@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/communityFragment">
+
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.code_share.finalapp.CommunityFragment"
+        android:label="Community"
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_communityFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.code_share.finalapp.CreatePostFragment"
+        android:label="Create Post"
+        tools:layout="@layout/fragment_create_post">
+        <action
+            android:id="@+id/action_createPostFragment_to_postCodeEditorFragment"
+            app:destination="@id/postCodeEditorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postCodeEditorFragment"
+        android:name="com.code_share.finalapp.PostCodeEditorFragment"
+        android:label="Code Editor"
+        tools:layout="@layout/fragment_post_code_editor" />
+
+    <fragment
+        android:id="@+id/codeEditorFragment"
+        android:name="com.code_share.finalapp.CodeEditorFragment"
+        android:label="Code Editor"
+        tools:layout="@layout/fragment_code_editor" />
+
+</navigation> 

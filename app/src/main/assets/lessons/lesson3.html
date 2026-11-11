@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked Lists</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Linked Lists</h1>
+
+    <h2>What is a Linked List?</h2>
+    <p>A linked list is a linear data structure where elements are stored in nodes, and each node points to the next node in the sequence. Unlike arrays, linked lists are not stored in contiguous memory locations.</p>
+
+    <h3>Node Structure</h3>
+    <pre><code>class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None  # Reference to next node</code></pre>
+
+    <h2>Types of Linked Lists</h2>
+    <ul>
+        <li><strong>Singly Linked List:</strong> Each node has data and a reference to the next node</li>
+        <li><strong>Doubly Linked List:</strong> Each node has data and references to both next and previous nodes</li>
+        <li><strong>Circular Linked List:</strong> The last node points back to the first node</li>
+    </ul>
+
+    <h3>Singly Linked List Implementation</h3>
+    <pre><code>class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+
+    def prepend(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def delete(self, data):
+        if not self.head:
+            return
+        if self.head.data == data:
+            self.head = self.head.next
+            return
+        current = self.head
+        while current.next and current.next.data != data:
+            current = current.next
+        if current.next:
+            current.next = current.next.next</code></pre>
+
+    <h3>Doubly Linked List Implementation</h3>
+    <pre><code>class DoublyNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def append(self, data):
+        new_node = DoublyNode(data)
+        if not self.head:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.prev = self.tail
+            self.tail.next = new_node
+            self.tail = new_node</code></pre>
+
+    <div class="note">
+        <strong>Advantages of Linked Lists:</strong>
+        <ul>
+            <li>Dynamic size</li>
+            <li>Efficient insertion and deletion</li>
+            <li>No memory waste</li>
+            <li>Flexible structure</li>
+        </ul>
+        <strong>Disadvantages:</strong>
+        <ul>
+            <li>Random access not possible</li>
+            <li>Extra memory for pointers</li>
+            <li>Not cache-friendly</li>
+            <li>Reverse traversal difficult in singly linked lists</li>
+        </ul>
+    </div>
+
+    <h2>Common Operations</h2>
+    <pre><code># Traversing a linked list
+def traverse(self):
+    current = self.head
+    while current:
+        print(current.data)
+        current = current.next
+
+# Finding length
+def length(self):
+    count = 0
+    current = self.head
+    while current:
+        count += 1
+        current = current.next
+    return count
+
+# Searching
+def search(self, data):
+    current = self.head
+    while current:
+        if current.data == data:
+            return True
+        current = current.next
+    return False</code></pre>
+
+    <h2>Time Complexity Analysis</h2>
+    <ul>
+        <li>Access: O(n)</li>
+        <li>Search: O(n)</li>
+        <li>Insertion: O(1) at beginning, O(n) at end</li>
+        <li>Deletion: O(1) at beginning, O(n) at end</li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement a function to reverse a linked list</li>
+        <li>Write a function to detect a cycle in a linked list</li>
+        <li>Create a function to find the middle node of a linked list</li>
+        <li>Implement a function to merge two sorted linked lists</li>
+        <li>Write a function to remove duplicates from a linked list</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>How would you detect a cycle in a linked list?</li>
+        <li>What's the difference between singly and doubly linked lists?</li>
+        <li>How would you implement a stack using a linked list?</li>
+        <li>What are the trade-offs between arrays and linked lists?</li>
+        <li>How would you handle memory management in a linked list?</li>
+    </ul>
+</body>
+</html> 

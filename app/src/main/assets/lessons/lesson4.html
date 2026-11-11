@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacks and Queues</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #ECEFF4;
+            background-color: #2E3440;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+        h1, h2, h3 {
+            color: #88C0D0;
+        }
+        pre {
+            background-color: #3B4252;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #88C0D0;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #3B4252;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #A3BE8C;
+        }
+        .note {
+            background-color: #3B4252;
+            border-left: 4px solid #88C0D0;
+            padding: 15px;
+            margin: 15px 0;
+            color: #D8DEE9;
+        }
+        ul, ol {
+            color: #D8DEE9;
+        }
+        strong {
+            color: #88C0D0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stacks and Queues</h1>
+
+    <h2>Stacks</h2>
+    <p>A stack is a LIFO (Last In First Out) data structure where elements are added and removed from the same end, called the top of the stack.</p>
+
+    <h3>Stack Operations</h3>
+    <pre><code>class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if not self.is_empty():
+            return self.items.pop()
+        return None
+
+    def peek(self):
+        if not self.is_empty():
+            return self.items[-1]
+        return None
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)</code></pre>
+
+    <h3>Applications of Stacks</h3>
+    <ul>
+        <li>Function call management (call stack)</li>
+        <li>Expression evaluation</li>
+        <li>Backtracking algorithms</li>
+        <li>Undo/Redo operations</li>
+        <li>Browser history</li>
+    </ul>
+
+    <h2>Queues</h2>
+    <p>A queue is a FIFO (First In First Out) data structure where elements are added at the rear and removed from the front.</p>
+
+    <h3>Queue Operations</h3>
+    <pre><code>class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.items.pop(0)
+        return None
+
+    def front(self):
+        if not self.is_empty():
+            return self.items[0]
+        return None
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)</code></pre>
+
+    <h3>Types of Queues</h3>
+    <ul>
+        <li><strong>Simple Queue:</strong> Basic FIFO structure</li>
+        <li><strong>Circular Queue:</strong> Last element points to first</li>
+        <li><strong>Priority Queue:</strong> Elements with higher priority are dequeued first</li>
+        <li><strong>Double-ended Queue (Deque):</strong> Elements can be added/removed from both ends</li>
+    </ul>
+
+    <div class="note">
+        <strong>Stack vs Queue:</strong>
+        <ul>
+            <li>Stack: LIFO (Last In First Out)</li>
+            <li>Queue: FIFO (First In First Out)</li>
+            <li>Stack: Single end operations</li>
+            <li>Queue: Two end operations</li>
+            <li>Stack: Better for backtracking</li>
+            <li>Queue: Better for scheduling</li>
+        </ul>
+    </div>
+
+    <h2>Implementation Examples</h2>
+    <pre><code># Stack implementation using linked list
+class StackNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedListStack:
+    def __init__(self):
+        self.top = None
+
+    def push(self, data):
+        new_node = StackNode(data)
+        new_node.next = self.top
+        self.top = new_node
+
+    def pop(self):
+        if self.top:
+            data = self.top.data
+            self.top = self.top.next
+            return data
+        return None
+
+# Queue implementation using linked list
+class QueueNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedListQueue:
+    def __init__(self):
+        self.front = None
+        self.rear = None
+
+    def enqueue(self, data):
+        new_node = QueueNode(data)
+        if not self.rear:
+            self.front = self.rear = new_node
+        else:
+            self.rear.next = new_node
+            self.rear = new_node
+
+    def dequeue(self):
+        if self.front:
+            data = self.front.data
+            self.front = self.front.next
+            if not self.front:
+                self.rear = None
+            return data
+        return None</code></pre>
+
+    <h2>Time Complexity Analysis</h2>
+    <ul>
+        <li>Stack Operations (Array-based):
+            <ul>
+                <li>Push: O(1)</li>
+                <li>Pop: O(1)</li>
+                <li>Peek: O(1)</li>
+            </ul>
+        </li>
+        <li>Queue Operations (Array-based):
+            <ul>
+                <li>Enqueue: O(1)</li>
+                <li>Dequeue: O(n)</li>
+                <li>Front: O(1)</li>
+            </ul>
+        </li>
+        <li>Linked List Implementation:
+            <ul>
+                <li>All operations: O(1)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>Practice Exercises</h2>
+    <ol>
+        <li>Implement a stack using two queues</li>
+        <li>Implement a queue using two stacks</li>
+        <li>Check if a string has balanced parentheses using a stack</li>
+        <li>Implement a circular queue</li>
+        <li>Create a priority queue implementation</li>
+    </ol>
+
+    <h2>Common Interview Questions</h2>
+    <ul>
+        <li>How would you implement a stack using a linked list?</li>
+        <li>What's the difference between a stack and a queue?</li>
+        <li>How would you implement a queue using two stacks?</li>
+        <li>What are the advantages of using a circular queue?</li>
+        <li>How would you handle overflow in a fixed-size stack/queue?</li>
+    </ul>
+</body>
+</html> 

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Editor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/comment/comment.min.js"></script>
+    <!-- Add theme stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/nord.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #2E3440; /* Matching background_dark color */
+        }
+        .CodeMirror {
+            height: 100vh;
+            font-size: 14px;
+        }
+        /* Custom styling for better visibility */
+        .CodeMirror-gutters {
+            background: #3B4252 !important;
+            border-right: 1px solid #434C5E !important;
+        }
+        .CodeMirror-linenumber {
+            color: #D8DEE9 !important;
+        }
+    </style>
+    <script>
+        let editor;
+        function initEditor() {
+            editor = CodeMirror(document.body, {
+                mode: "python",
+                theme: "nord",  // Using Nord theme which has softer colors
+                lineNumbers: true,
+                autoCloseBrackets: true,
+                indentUnit: 4,
+                tabSize: 4,
+                lineWrapping: true,
+                matchBrackets: true
+            });
+            
+            // Set initial content
+            editor.setValue("# Write your Python code here\n");
+            
+            // Add change event handler to automatically send code to Android
+            editor.on('change', function() {
+                // Use a debounce to avoid sending too many updates
+                clearTimeout(editor.changeTimer);
+                editor.changeTimer = setTimeout(function() {
+                    sendCode();
+                }, 500); // Send code after 500ms of inactivity
+            });
+        }
+
+        function sendCode() {
+            try {
+                if (!editor) {
+                    console.error("Editor not initialized");
+                    return "# Error: Editor not initialized";
+                }
+                
+                const code = editor.getValue();
+                
+                // Log the code being sent
+                console.log("Sending code to Android, length: " + code.length);
+                
+                // Make sure Android interface exists
+                if (typeof Android !== 'undefined' && Android && typeof Android.sendCodeToAndroid === 'function') {
+                    Android.sendCodeToAndroid(code);
+                    console.log("Code sent successfully");
+                } else {
+                    console.error("Android interface not available");
+                }
+                
+                return code;
+            } catch (error) {
+                console.error("Error sending code:", error);
+                return "# Error: " + error.message;
+            }
+        }
+        
+        // Function to get code - called by JavaScript from Android
+        function getCode() {
+            try {
+                if (!editor) {
+                    console.error("Editor not initialized");
+                    return "";
+                }
+                return editor.getValue();
+            } catch (error) {
+                console.error("Error getting code:", error);
+                return "";
+            }
+        }
+    </script>
+</head>
+<body onload="initEditor()">
+</body>
+</html>
